@@ -1,11 +1,21 @@
-const express = require('express')
-const app = express()
-const connection = require('./db/connection.js')
-const port = 7777
+const express = require('express');
+const app = express();
 
-app.use(express.json())
-connection()
+const connection = require('./db/connection.js');
+require('dotenv').config();
+
+const userRoutes = require('./Routs/userRouts.js');
+const recipeRoutes = require('./Routs/recipeRouts.js');
+
+const port = 7777;
+
+app.use(express.json());
+
+connection();
+
+app.use('/users', userRoutes);
+app.use('/recipes', recipeRoutes);
 
 app.listen(port, () => {
-    console.log(`RecipeHub app listening on port ${port}!`)
-})
+    console.log(`RecipeHub app listening on port ${port}!`);
+});

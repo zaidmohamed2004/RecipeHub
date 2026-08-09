@@ -1,4 +1,6 @@
 const User = require("../models/user.model.js");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // Register
 const register = async (req, res) => {
@@ -13,11 +15,14 @@ const register = async (req, res) => {
             });
         }
 
+        // Encrypt password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         const newUser = new User({
             firstName,
             lastName,
             email,
-            password
+            password: hashedPassword
         });
 
         await newUser.save();
@@ -40,10 +45,8 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await User.findOne({
-            email,
-            password
-        });
+        // Find user by email only
+        const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(400).json({
@@ -51,9 +54,34 @@ const login = async (req, res) => {
             });
         }
 
+        // Compare normal password with hashed password
+        const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (!isPasswordCorrect) {
+            return res.status(400).json({
+                error: "Invalid Email or Password"
+            });
+        }
+
+        // Create JWT
+        const token = jwt.sign(
+            {
+                id: user._id,
+                role: user.role
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1d"
+            }
+        );
+
         res.status(200).json({
             message: "Login Successful",
-            data: user
+            token: token,
+            user: user
         });
 
     } catch (error) {
