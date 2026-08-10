@@ -1,9 +1,12 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const connection = () => {
-    mongoose.connect("mongodb://localhost:27017/recipeHubApp").then(() => {
-        console.log('DB connected');
-    })
-}
+const connection = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log("MongoDB connected");
+    } catch (error) {
+        console.log("MongoDB connection error:", error.message);
+    }
+};
 
-module.exports = connection
+module.exports = connection;

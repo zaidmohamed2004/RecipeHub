@@ -22,21 +22,33 @@ const createRecipe = async (req, res) => {
 // 2. Get All Recipes
 const getAllRecipes = async (req, res) => {
     try {
-        const recipes = await Recipe.find();
+
+        let limit = req.query.limit || 10;
+        let page = req.query.page || 1;
+
+        let skip = (page - 1) * limit;
+
+        const recipes = await Recipe
+            .find()
+            .limit(limit)
+            .skip(skip);
 
         res.status(200).json({
             message: "Recipes fetched successfully",
+            page: page,
+            limit: limit,
             data: recipes
         });
 
     } catch (error) {
+
         res.status(500).json({
             message: "Error fetching recipes",
             error: error.message
         });
+
     }
 };
-
 
 // 3. Get Recipe By ID
 const getRecipeById = async (req, res) => {
