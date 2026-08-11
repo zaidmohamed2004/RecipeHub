@@ -1,8 +1,7 @@
 const User = require("../models/user.model.js");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { generateToken } = require("../config/jwt.js");
 
-// Register
 const register = async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
@@ -15,7 +14,6 @@ const register = async (req, res) => {
             });
         }
 
-        // Encrypt password
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new User({
@@ -29,7 +27,13 @@ const register = async (req, res) => {
 
         res.status(201).json({
             message: "Registered Successfully",
-            data: newUser
+            data: {
+                id: newUser._id,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email,
+                role: newUser.role
+            }
         });
 
     } catch (error) {
@@ -40,12 +44,10 @@ const register = async (req, res) => {
 };
 
 
-// Login
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Find user by email only
         const user = await User.findOne({ email });
 
         if (!user) {
@@ -54,7 +56,6 @@ const login = async (req, res) => {
             });
         }
 
-        // Compare normal password with hashed password
         const isPasswordCorrect = await bcrypt.compare(
             password,
             user.password
@@ -66,22 +67,21 @@ const login = async (req, res) => {
             });
         }
 
-        // Create JWT
-        const token = jwt.sign(
-            {
-                id: user._id,
-                role: user.role
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: "1d"
-            }
-        );
+        const token = generateToken({
+            id: user._id,
+            role: user.role
+        });
 
         res.status(200).json({
             message: "Login Successful",
             token: token,
-            user: user
+            user: {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                role: user.role
+            }
         });
 
     } catch (error) {
@@ -96,3 +96,4 @@ module.exports = {
     register,
     login
 };
+
