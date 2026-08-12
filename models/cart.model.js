@@ -1,18 +1,13 @@
 const mongoose = require("mongoose");
 
-const recipeSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        min: 2
-    },
-
-    category: {
-        type: String,
+const cartSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true
     },
 
-    ingredients: [
+    items: [
         {
             product: {
                 type: mongoose.Schema.Types.ObjectId,
@@ -26,14 +21,9 @@ const recipeSchema = new mongoose.Schema({
                 min: 1
             }
         }
-    ],
-
-    steps: {
-        type: String,
-        required: true
-    }
+    ]
 });
 
-const recipeModel = mongoose.model("Recipe", recipeSchema);
+const cartModel = mongoose.model("Cart", cartSchema);
 
-module.exports = recipeModel;
+module.exports = cartModel;

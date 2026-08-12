@@ -15,8 +15,20 @@ const recipeValidation = [
     body("ingredients")
         .notEmpty()
         .withMessage("Ingredients are required")
-        .isArray()
-        .withMessage("Ingredients must be an array"),
+        .isArray({ min: 1 })
+        .withMessage("Ingredients must be a non-empty array"),
+
+    body("ingredients.*.product")
+        .notEmpty()
+        .withMessage("Product ID is required")
+        .isMongoId()
+        .withMessage("Invalid product ID"),
+
+    body("ingredients.*.quantity")
+        .notEmpty()
+        .withMessage("Quantity is required")
+        .isInt({ min: 1 })
+        .withMessage("Quantity must be at least 1"),
 
     body("steps")
         .notEmpty()
