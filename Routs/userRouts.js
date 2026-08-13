@@ -1,8 +1,8 @@
 const express = require("express");
 const userController = require("../controllers/userController.js")
 const loginValidation = require("../validations/loginValidation.js");
-const resultValidation = require("../middlewares/resultValidation.js");
 const registerValidation = require("../validations/registerValidation.js")
+const resultValidation = require("../middlewares/resultValidation.js");
 
 const router = express.Router();
 

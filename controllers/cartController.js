@@ -1,11 +1,11 @@
 const Cart = require("../models/cart.model");
 const Recipe = require("../models/recipe.model"); // 1. استيراد موديل الوصفات
 
-// 🛒 إضافة منتج منفرد للسلة
+// إضافة منتج منفرد للسلة
 const addToCart = async (req, res) => {
     try {
-        const { user, product, quantity } = req.body;
-
+        const { product, quantity } = req.body;
+        const user = req.userId;
         let cart = await Cart.findOne({ user });
 
         // لو المستخدم معندوش Cart
@@ -28,7 +28,8 @@ const addToCart = async (req, res) => {
 
             if (existingItem) {
                 existingItem.quantity += quantity;
-            } else {
+            } 
+            else {
                 cart.items.push({
                     product,
                     quantity
@@ -43,7 +44,8 @@ const addToCart = async (req, res) => {
             cart
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).json({
             msg: "Error",
             error: error.message
@@ -51,10 +53,11 @@ const addToCart = async (req, res) => {
     }
 };
 
-// 🍳 تحويل جميع مكونات الوصفة لمنتجات وإضافتها للسلة
+// تحويل جميع مكونات الوصفة لمنتجات وإضافتها للسلة
 const addRecipeToCart = async (req, res) => {
     try {
-        const { user, recipeId } = req.body;
+        const { recipeId } = req.body;
+        const user = req.userId;
 
         // 1. البحث عن الوصفة ومكوناتها
         const recipe = await Recipe.findById(recipeId);
@@ -64,7 +67,7 @@ const addRecipeToCart = async (req, res) => {
             });
         }
 
-        // 2. البحث عن سلة المستخدم (أو إنشائها لو مش موجودة)
+        // البحث عن سلة المستخدم (أو إنشائها لو مش موجودة)
         let cart = await Cart.findOne({ user });
         if (!cart) {
             cart = new Cart({
@@ -73,7 +76,7 @@ const addRecipeToCart = async (req, res) => {
             });
         }
 
-        // 3. المرور على كل مكونات الوصفة وإضافتها للسلة
+        // المرور على كل مكونات الوصفة وإضافتها للسلة
         recipe.ingredients.forEach(ingredient => {
             const existingItem = cart.items.find(
                 item => item.product.toString() === ingredient.product.toString()
@@ -82,7 +85,8 @@ const addRecipeToCart = async (req, res) => {
             if (existingItem) {
                 // لو المنتج موجود مسبقاً نزيد الكمية
                 existingItem.quantity += ingredient.quantity;
-            } else {
+            } 
+            else {
                 // لو مش موجود نضيفه كمنتج جديد في السلة
                 cart.items.push({
                     product: ingredient.product,
@@ -91,7 +95,7 @@ const addRecipeToCart = async (req, res) => {
             }
         });
 
-        // 4. حفظ التعديلات في قاعدة البيانات
+        // حفظ التعديلات في قاعدة البيانات
         await cart.save();
 
         res.status(200).json({
@@ -99,7 +103,8 @@ const addRecipeToCart = async (req, res) => {
             cart
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).json({
             msg: "Error",
             error: error.message
@@ -107,13 +112,10 @@ const addRecipeToCart = async (req, res) => {
     }
 };
 
-// 📥 عرض السلة للمستخدم
+// عرض السلة للمستخدم
 const getCart = async (req, res) => {
     try {
-        const { userId } = req.params;
-
-        const cart = await Cart.findOne({ user: userId })
-            .populate("items.product");
+        const cart = await Cart.findOne({ user: req.userId }).populate("items.product");
 
         if (!cart) {
             return res.status(404).json({
@@ -125,7 +127,8 @@ const getCart = async (req, res) => {
             cart
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).json({
             message: "Error",
             error: error.message

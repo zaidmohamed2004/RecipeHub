@@ -1,8 +1,9 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 
 const connection = require('./config/db.js');
-require('dotenv').config();
 
 const userRoutes = require('./Routs/userRouts.js');
 const recipeRoutes = require('./Routs/recipeRouts.js');

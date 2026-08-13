@@ -1,6 +1,6 @@
 const Recipe = require("../models/recipe.model.js");
 
-// 1. Create Recipe
+
 const createRecipe = async (req, res) => {
     try {
         const newRecipe = await Recipe.create(req.body);
@@ -10,7 +10,8 @@ const createRecipe = async (req, res) => {
             data: newRecipe
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(400).json({
             message: "Error creating recipe",
             error: error.message
@@ -19,7 +20,6 @@ const createRecipe = async (req, res) => {
 };
 
 
-// 2. Get All Recipes
 const getAllRecipes = async (req, res) => {
     try {
 
@@ -40,7 +40,8 @@ const getAllRecipes = async (req, res) => {
             data: recipes
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
 
         res.status(500).json({
             message: "Error fetching recipes",
@@ -50,7 +51,7 @@ const getAllRecipes = async (req, res) => {
     }
 };
 
-// 3. Get Recipe By ID
+
 const getRecipeById = async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.id);
@@ -66,7 +67,8 @@ const getRecipeById = async (req, res) => {
             data: recipe
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).json({
             message: "Error fetching recipe",
             error: error.message
@@ -75,7 +77,6 @@ const getRecipeById = async (req, res) => {
 };
 
 
-// 4. Update Recipe
 const updateRecipe = async (req, res) => {
     try {
         const updatedRecipe = await Recipe.findByIdAndUpdate(
@@ -98,7 +99,8 @@ const updateRecipe = async (req, res) => {
             data: updatedRecipe
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(400).json({
             message: "Error updating recipe",
             error: error.message
@@ -107,7 +109,6 @@ const updateRecipe = async (req, res) => {
 };
 
 
-// 5. Delete Recipe
 const deleteRecipe = async (req, res) => {
     try {
         const deletedRecipe = await Recipe.findByIdAndDelete(
@@ -125,7 +126,8 @@ const deleteRecipe = async (req, res) => {
             data: deletedRecipe
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).json({
             message: "Error deleting recipe",
             error: error.message

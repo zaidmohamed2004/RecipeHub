@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
+
 const orderController = require("../controllers/orderController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.post("/checkout", orderController.createOrder);
+// لازم اللي بيعمل Checkout يكون عامل Login وعنده Token صحيحة
+router.post("/checkout", authMiddleware, orderController.createOrder);
 
-router.get("/user/:userId", orderController.getUserOrders);
+router.get("/", authMiddleware, orderController.getUserOrders);
+
 
 module.exports = router;
