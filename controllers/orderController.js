@@ -3,7 +3,8 @@ const Cart = require("../models/cart.model");
 
 const createOrder = async (req, res) => {
   try {
-    const { user, shippingAddress, phone, paymentMethod } = req.body;
+    const { shippingAddress, phone, paymentMethod } = req.body;
+    const user = req.userId;
 
     const cart = await Cart.findOne({ user }).populate("items.product");
 
@@ -41,17 +42,20 @@ const createOrder = async (req, res) => {
       msg: "Order created successfully and cart cleared!",
       order: newOrder,
     });
-  } catch (error) {
+  }
+  
+  catch (error) {
     res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 
 const getUserOrders = async (req, res) => {
   try {
-    const { userId } = req.params;
-    const orders = await Order.find({ user: userId }).populate("items.product");
+    const orders = await Order.find({ user: req.userId });
     res.status(200).json({ orders });
-  } catch (error) {
+  
+  } 
+  catch (error) {
     res.status(500).json({ msg: "Server error", error: error.message });
   }
 };

@@ -1,0 +1,25 @@
+1️⃣ Register
+      ↓
+2️⃣ Login
+      ↓
+3️⃣ Get Products
+      ↓
+4️⃣ Admin Login
+      ↓
+5️⃣ Add Products
+      ↓
+6️⃣ Create Recipe
+      ↓
+7️⃣ User Login
+      ↓
+8️⃣ Add Product to Cart
+      ↓
+9️⃣ Get Cart
+      ↓
+🔟 Add Recipe to Cart
+      ↓
+1️⃣1️⃣ Get Cart
+      ↓
+1️⃣2️⃣ Checkout
+      ↓
+1️⃣3️⃣ Get Orders
