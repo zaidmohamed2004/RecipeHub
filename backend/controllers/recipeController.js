@@ -1,6 +1,5 @@
 const Recipe = require("../models/recipe.model.js");
 
-
 const createRecipe = async (req, res) => {
     try {
         const newRecipe = await Recipe.create(req.body);
@@ -19,17 +18,17 @@ const createRecipe = async (req, res) => {
     }
 };
 
-
 const getAllRecipes = async (req, res) => {
     try {
-
-        let limit = req.query.limit || 10;
-        let page = req.query.page || 1;
+        // تحويل القيم لأرقام لتجنب مشاكل الـ Types
+        let limit = parseInt(req.query.limit) || 10;
+        let page = parseInt(req.query.page) || 1;
 
         let skip = (page - 1) * limit;
 
         const recipes = await Recipe
             .find()
+            .populate("ingredients.product") // 👈 إضافة الـ Populate هنا
             .limit(limit)
             .skip(skip);
 
@@ -42,19 +41,17 @@ const getAllRecipes = async (req, res) => {
 
     } 
     catch (error) {
-
         res.status(500).json({
             message: "Error fetching recipes",
             error: error.message
         });
-
     }
 };
 
-
 const getRecipeById = async (req, res) => {
     try {
-        const recipe = await Recipe.findById(req.params.id);
+        const recipe = await Recipe.findById(req.params.id)
+            .populate("ingredients.product"); // 👈 وإضافة الـ Populate هنا كمان
 
         if (!recipe) {
             return res.status(404).json({
@@ -76,7 +73,6 @@ const getRecipeById = async (req, res) => {
     }
 };
 
-
 const updateRecipe = async (req, res) => {
     try {
         const updatedRecipe = await Recipe.findByIdAndUpdate(
@@ -86,7 +82,7 @@ const updateRecipe = async (req, res) => {
                 new: true,
                 runValidators: true
             }
-        );
+        ).populate("ingredients.product");
 
         if (!updatedRecipe) {
             return res.status(404).json({
@@ -107,7 +103,6 @@ const updateRecipe = async (req, res) => {
         });
     }
 };
-
 
 const deleteRecipe = async (req, res) => {
     try {
@@ -134,7 +129,6 @@ const deleteRecipe = async (req, res) => {
         });
     }
 };
-
 
 module.exports = {
     createRecipe,
