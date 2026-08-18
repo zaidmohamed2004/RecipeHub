@@ -1,1 +1,263 @@
 <app-hero></app-hero>
+
+<!-- Categories -->
+
+<section class="categories-section">
+
+  <div class="categories-header">
+
+    <span class="section-label">
+      BROWSE BY MOMENT
+    </span>
+
+    <h2>
+      Categories
+    </h2>
+
+  </div>
+
+
+  <div class="categories-grid">
+
+    <a
+      routerLink="/recipes"
+      [queryParams]="{ category: 'Breakfast' }"
+      class="category-card"
+    >
+      <div class="category-icon">🍳</div>
+
+      <div class="category-info">
+        <h3>Breakfast</h3>
+        <span>1 recipe</span>
+      </div>
+
+      <span class="category-arrow">→</span>
+    </a>
+
+
+    <a
+      routerLink="/recipes"
+      [queryParams]="{ category: 'Lunch' }"
+      class="category-card"
+    >
+      <div class="category-icon">🥗</div>
+
+      <div class="category-info">
+        <h3>Lunch</h3>
+        <span>1 recipe</span>
+      </div>
+
+      <span class="category-arrow">→</span>
+    </a>
+
+
+    <a
+      routerLink="/recipes"
+      [queryParams]="{ category: 'Dinner' }"
+      class="category-card"
+    >
+      <div class="category-icon">🍝</div>
+
+      <div class="category-info">
+        <h3>Dinner</h3>
+        <span>1 recipe</span>
+      </div>
+
+      <span class="category-arrow">→</span>
+    </a>
+
+
+    <a
+      routerLink="/recipes"
+      [queryParams]="{ category: 'Dessert' }"
+      class="category-card"
+    >
+      <div class="category-icon">🍰</div>
+
+      <div class="category-info">
+        <h3>Dessert</h3>
+        <span>2 recipes</span>
+      </div>
+
+      <span class="category-arrow">→</span>
+    </a>
+
+
+    <a
+      routerLink="/recipes"
+      [queryParams]="{ category: 'Salad' }"
+      class="category-card"
+    >
+      <div class="category-icon">🥬</div>
+
+      <div class="category-info">
+        <h3>Salad</h3>
+        <span>2 recipes</span>
+      </div>
+
+      <span class="category-arrow">→</span>
+    </a>
+
+  </div>
+
+</section>
+<!-- ==================== RECIPES ==================== -->
+
+<section class="recipes-section">
+
+  <div class="section-header">
+
+    <div>
+      <span class="section-label">OUR RECIPES</span>
+
+      <h2>Discover Delicious Recipes</h2>
+
+      <p>
+        Explore our collection of delicious recipes and find something
+        perfect for your next meal.
+      </p>
+    </div>
+
+    <a routerLink="/recipes" class="view-all">
+      View all →
+    </a>
+
+  </div>
+
+
+  <div class="recipes-grid">
+
+    <app-recipe-card
+      [title]="'Classic Egyptian Koshari'"
+      [category]="'Egyptian'"
+      [description]="'A delicious Egyptian dish made with rice, lentils, pasta and flavorful tomato sauce.'"
+      [rating]="4.8"
+      [image]="'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80'">
+    </app-recipe-card>
+
+
+    <app-recipe-card
+      [title]="'Creamy Chicken Pasta'"
+      [category]="'Pasta'"
+      [description]="'Creamy chicken pasta prepared with a delicious homemade sauce and fresh ingredients.'"
+      [rating]="4.7"
+      [image]="'https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?auto=format&fit=crop&w=800&q=80'">
+    </app-recipe-card>
+
+
+    <app-recipe-card
+      [title]="'Fresh Garden Salad'"
+      [category]="'Healthy'"
+      [description]="'A fresh and colorful salad made with vegetables and a light tasty dressing.'"
+      [rating]="4.6"
+      [image]="'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80'">
+    </app-recipe-card>
+
+
+    <app-recipe-card
+      [title]="'Classic Beef Burger'"
+      [category]="'American'"
+      [description]="'A juicy beef burger served with cheese and fresh vegetables.'"
+      [rating]="4.9"
+      [image]="'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80'">
+    </app-recipe-card>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==================== FEATURED PRODUCTS ==================== -->
+
+<section class="featured-products">
+
+  <div class="section-header">
+
+    <div>
+      <span class="section-label">FEATURED PRODUCTS</span>
+
+      <h2>Shop the ingredients</h2>
+
+      <p>
+        Everything you need to prepare your favorite recipes.
+      </p>
+    </div>
+
+    <a routerLink="/store" class="view-all">
+      Visit store →
+    </a>
+
+  </div>
+
+
+ <div class="products-grid">
+
+  <app-product-card
+    [title]="'Fresh Tomatoes'"
+    [category]="'Vegetables'"
+    [description]="'Fresh tomatoes perfect for sauces, salads and everyday cooking.'"
+    [price]="4.99"
+    [image]="'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=600&q=80'">
+  </app-product-card>
+
+
+  <app-product-card
+    [title]="'Basmati Rice'"
+    [category]="'Grains'"
+    [description]="'Premium long-grain basmati rice for delicious homemade meals.'"
+    [price]="8.50"
+    [image]="'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80'">
+  </app-product-card>
+
+
+  <app-product-card
+    [title]="'Fresh Basil'"
+    [category]="'Herbs'"
+    [description]="'Fresh aromatic basil to add flavor to your favorite recipes.'"
+    [price]="3.25"
+    [image]="'https://images.unsplash.com/photo-1618375569909-3c8616cf7733?auto=format&fit=crop&w=600&q=80'">
+  </app-product-card>
+
+
+  <app-product-card
+    [title]="'Mozzarella Cheese'"
+    [category]="'Dairy'"
+    [description]="'Creamy mozzarella cheese, perfect for pizza and pasta dishes.'"
+    [price]="7.75"
+    [image]="'https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=600&q=80'">
+  </app-product-card>
+
+</div>
+
+</section>
+
+
+
+<!-- ==================== CTA ==================== -->
+
+<section class="cta">
+
+  <div class="cta-content">
+
+    <span class="section-label">
+      COOK SOMETHING GREAT
+    </span>
+
+    <h2>
+      Good food starts<br />
+      with good ingredients.
+    </h2>
+
+    <p>
+      Discover recipes, shop fresh ingredients, and make something
+      delicious today.
+    </p>
+
+    <a routerLink="/recipes" class="cta-btn">
+      Explore Recipes
+    </a>
+
+  </div>
+
+</section>

@@ -1,0 +1,41 @@
+<div class="recipe-card">
+
+  <div class="recipe-image">
+    <img
+      [src]="image"
+      [alt]="title"
+    />
+  </div>
+
+  <div class="recipe-content">
+
+    <span class="recipe-category">
+      {{ category }}
+    </span>
+
+    <h3>
+      {{ title }}
+    </h3>
+
+    <p>
+      {{ description }}
+    </p>
+
+    <div class="recipe-footer">
+
+      <div class="rating">
+        ★ {{ rating }}
+      </div>
+
+      <a
+        [routerLink]="['/recipe', title]"
+        class="view-recipe"
+      >
+        View Recipe →
+      </a>
+
+    </div>
+
+  </div>
+
+</div>

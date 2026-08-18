@@ -1,0 +1,37 @@
+.category-card {
+  background: #f7f3ed;
+  padding: 30px 25px;
+  border: 1px solid #e5dfd5;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+}
+
+.category-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.category-card h3 {
+  color: #24382f;
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.category-card p {
+  color: #68736d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.category-card a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #b65c35;
+  text-decoration: none;
+  font-weight: 600;
+}

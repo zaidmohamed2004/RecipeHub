@@ -1,0 +1,37 @@
+<div class="product-card">
+
+  <div class="product-image">
+    <img
+      [src]="image"
+      [alt]="title"
+    />
+  </div>
+
+  <div class="product-content">
+
+    <span class="product-category">
+      {{ category }}
+    </span>
+
+    <h3>{{ title }}</h3>
+
+    <p>{{ description }}</p>
+
+    <div class="product-footer">
+
+      <span class="price">
+        ${{ price }}
+      </span>
+
+      <a
+        routerLink="/store"
+        class="shop-link"
+      >
+        Shop now →
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
