@@ -4,19 +4,19 @@
 
   @if (loading) {
 
-    <section class="state-container">
+  <section class="state-container">
 
-      <div class="spinner"></div>
+    <div class="spinner"></div>
 
-      <h2>
-        Loading recipe...
-      </h2>
+    <h2>
+      Loading recipe...
+    </h2>
 
-      <p>
-        Please wait while we fetch the recipe details.
-      </p>
+    <p>
+      Please wait while we fetch the recipe details.
+    </p>
 
-    </section>
+  </section>
 
   }
 
@@ -25,28 +25,25 @@
 
   @if (!loading && error) {
 
-    <section class="state-container error-state">
+  <section class="state-container error-state">
 
-      <div class="state-icon">
-        ⚠️
-      </div>
+    <div class="state-icon">
+      ⚠️
+    </div>
 
-      <h2>
-        Recipe Not Found
-      </h2>
+    <h2>
+      Recipe Not Found
+    </h2>
 
-      <p>
-        {{ error }}
-      </p>
+    <p>
+      {{ error }}
+    </p>
 
-      <a
-        routerLink="/recipes"
-        class="back-button"
-      >
-        ← Back to Recipes
-      </a>
+    <a routerLink="/recipes" class="back-button">
+      ← Back to Recipes
+    </a>
 
-    </section>
+  </section>
 
   }
 
@@ -55,280 +52,271 @@
 
   @if (!loading && !error && recipe) {
 
-    <main class="details-container">
+  <main class="details-container">
 
-      <!-- BACK -->
+    <!-- BACK -->
 
-      <a
-        routerLink="/recipes"
-        class="back-link"
-      >
-        ← Back to Recipes
+    <a routerLink="/recipes" class="back-link">
+      ← Back to Recipes
+    </a>
+
+
+    <!-- RECIPE HEADER -->
+
+    <section class="recipe-header">
+
+      <div class="recipe-image">
+
+        <img [src]="recipe.image" [alt]="recipe.name" />
+
+        <span class="category-badge">
+          {{ recipe.category }}
+        </span>
+
+      </div>
+
+
+      <div class="recipe-introduction">
+
+        <span class="eyebrow">
+          RECIPE
+        </span>
+
+        <h1>
+          {{ recipe.name }}
+        </h1>
+
+        <p class="intro-text">
+          Discover how to prepare this delicious
+          {{ recipe.category.toLowerCase() }} recipe
+          with simple ingredients and clear instructions.
+        </p>
+
+
+        <div class="recipe-meta">
+
+          <div class="meta-item">
+
+            <span class="meta-icon">
+              🥕
+            </span>
+
+            <div>
+
+              <strong>
+                {{ recipe.ingredients.length }}
+              </strong>
+
+              <span>
+                Ingredients
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="meta-item">
+
+            <span class="meta-icon">
+              📋
+            </span>
+
+            <div>
+
+              <strong>
+                {{ getStepList().length }}
+              </strong>
+
+              <span>
+                Steps
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="meta-item">
+
+            <span class="meta-icon">
+              🍽️
+            </span>
+
+            <div>
+
+              <strong>
+                {{ recipe.category }}
+              </strong>
+
+              <span>
+                Category
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+
+    <section class="recipe-body">
+
+
+      <!-- INGREDIENTS -->
+
+      <div class="ingredients-section">
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            01
+          </span>
+
+          <div>
+
+            <span class="section-label">
+              WHAT YOU NEED
+            </span>
+
+            <h2>
+              Ingredients
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="ingredients-list">
+
+          @for (
+          ingredient of recipe.ingredients;
+          track ingredient.product._id
+          ) {
+
+          <div class="ingredient">
+
+            <div class="ingredient-info">
+
+              <span class="ingredient-dot"></span>
+
+              <div>
+
+                <strong>
+                  {{ ingredient.product.name }}
+                </strong>
+
+                <span class="ingredient-price">
+                  {{ ingredient.product.price }}
+                  EGP
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <span class="quantity">
+              {{ ingredient.quantity }}
+            </span>
+
+          </div>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- STEPS -->
+
+      <div class="steps-section">
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            02
+          </span>
+
+          <div>
+
+            <span class="section-label">
+              HOW TO MAKE IT
+            </span>
+
+            <h2>
+              Instructions
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="steps-list">
+
+          @for (
+          step of getStepList();
+          track $index
+          ) {
+
+          <div class="step">
+
+            <div class="step-number">
+              {{ $index + 1 }}
+            </div>
+
+            <div class="step-content">
+
+              <p>
+                {{ step }}
+              </p>
+
+            </div>
+
+          </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BOTTOM CTA -->
+
+    <section class="recipe-bottom">
+
+      <div>
+
+        <span>
+          READY TO COOK?
+        </span>
+
+        <h2>
+          Enjoy your meal! 🍽️
+        </h2>
+
+      </div>
+
+      <a routerLink="/recipes" class="browse-button">
+        Browse More Recipes
+        <span>→</span>
       </a>
 
+    </section>
 
-      <!-- RECIPE HEADER -->
-
-      <section class="recipe-header">
-
-        <div class="recipe-image">
-
-          <img
-            [src]="getRecipeImage()"
-            [alt]="recipe.name"
-          />
-
-          <span class="category-badge">
-            {{ recipe.category }}
-          </span>
-
-        </div>
-
-
-        <div class="recipe-introduction">
-
-          <span class="eyebrow">
-            RECIPE
-          </span>
-
-          <h1>
-            {{ recipe.name }}
-          </h1>
-
-          <p class="intro-text">
-            Discover how to prepare this delicious
-            {{ recipe.category.toLowerCase() }} recipe
-            with simple ingredients and clear instructions.
-          </p>
-
-
-          <div class="recipe-meta">
-
-            <div class="meta-item">
-
-              <span class="meta-icon">
-                🥕
-              </span>
-
-              <div>
-
-                <strong>
-                  {{ recipe.ingredients.length }}
-                </strong>
-
-                <span>
-                  Ingredients
-                </span>
-
-              </div>
-
-            </div>
-
-
-            <div class="meta-item">
-
-              <span class="meta-icon">
-                📋
-              </span>
-
-              <div>
-
-                <strong>
-                  {{ getStepList().length }}
-                </strong>
-
-                <span>
-                  Steps
-                </span>
-
-              </div>
-
-            </div>
-
-
-            <div class="meta-item">
-
-              <span class="meta-icon">
-                🍽️
-              </span>
-
-              <div>
-
-                <strong>
-                  {{ recipe.category }}
-                </strong>
-
-                <span>
-                  Category
-                </span>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- CONTENT -->
-
-      <section class="recipe-body">
-
-
-        <!-- INGREDIENTS -->
-
-        <div class="ingredients-section">
-
-          <div class="section-heading">
-
-            <span class="section-number">
-              01
-            </span>
-
-            <div>
-
-              <span class="section-label">
-                WHAT YOU NEED
-              </span>
-
-              <h2>
-                Ingredients
-              </h2>
-
-            </div>
-
-          </div>
-
-
-          <div class="ingredients-list">
-
-            @for (
-              ingredient of recipe.ingredients;
-              track ingredient.product._id
-            ) {
-
-              <div class="ingredient">
-
-                <div class="ingredient-info">
-
-                  <span class="ingredient-dot"></span>
-
-                  <div>
-
-                    <strong>
-                      {{ ingredient.product.name }}
-                    </strong>
-
-                    <span class="ingredient-price">
-                      {{ ingredient.product.price }}
-                      EGP
-                    </span>
-
-                  </div>
-
-                </div>
-
-
-                <span class="quantity">
-                  {{ ingredient.quantity }}
-                </span>
-
-              </div>
-
-            }
-
-          </div>
-
-        </div>
-
-
-        <!-- STEPS -->
-
-        <div class="steps-section">
-
-          <div class="section-heading">
-
-            <span class="section-number">
-              02
-            </span>
-
-            <div>
-
-              <span class="section-label">
-                HOW TO MAKE IT
-              </span>
-
-              <h2>
-                Instructions
-              </h2>
-
-            </div>
-
-          </div>
-
-
-          <div class="steps-list">
-
-            @for (
-              step of getStepList();
-              track $index
-            ) {
-
-              <div class="step">
-
-                <div class="step-number">
-                  {{ $index + 1 }}
-                </div>
-
-                <div class="step-content">
-
-                  <p>
-                    {{ step }}
-                  </p>
-
-                </div>
-
-              </div>
-
-            }
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- BOTTOM CTA -->
-
-      <section class="recipe-bottom">
-
-        <div>
-
-          <span>
-            READY TO COOK?
-          </span>
-
-          <h2>
-            Enjoy your meal! 🍽️
-          </h2>
-
-        </div>
-
-        <a
-          routerLink="/recipes"
-          class="browse-button"
-        >
-          Browse More Recipes
-          <span>→</span>
-        </a>
-
-      </section>
-
-    </main>
+  </main>
 
   }
 

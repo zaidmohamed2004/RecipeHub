@@ -42,9 +42,8 @@ export class RecipeDetails implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-
     private recipeService: RecipeService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -94,42 +93,6 @@ export class RecipeDetails implements OnInit {
         }
 
       });
-  }
-
-  getRecipeImage(): string {
-
-    if (!this.recipe) {
-      return '';
-    }
-
-    const name =
-      this.recipe.name.toLowerCase();
-
-    if (name.includes('pizza')) {
-      return 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1200&q=85';
-    }
-
-    if (name.includes('pasta')) {
-      return 'https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?auto=format&fit=crop&w=1200&q=85';
-    }
-
-    if (name.includes('burger')) {
-      return 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=85';
-    }
-
-    if (name.includes('chicken')) {
-      return 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=1200&q=85';
-    }
-
-    if (name.includes('salad')) {
-      return 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=85';
-    }
-
-    if (name.includes('rice')) {
-      return 'https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=1200&q=85';
-    }
-
-    return 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85';
   }
 
   getStepList(): string[] {

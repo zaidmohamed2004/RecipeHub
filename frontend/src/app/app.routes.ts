@@ -4,6 +4,7 @@ import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { Recipes } from './pages/recipes/recipes';
+import { RecipeDetails } from './pages/recipe-details/recipe-details';
 
 export const routes: Routes = [
 
@@ -15,6 +16,11 @@ export const routes: Routes = [
     {
         path: 'recipes',
         component: Recipes
+    },
+
+    {
+        path: 'recipes/:id',
+        component: RecipeDetails
     },
 
     {

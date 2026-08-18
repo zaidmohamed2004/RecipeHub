@@ -1,15 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
-import {
-  Recipe,
-  RecipeService
-} from '../../services/recipe';
+import { Recipe } from '../../models/recipe';
+import { RecipeService } from '../../services/recipe';
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './recipes.html',
   styleUrl: './recipes.css'
 })
@@ -24,32 +23,43 @@ export class Recipes implements OnInit {
   error = '';
 
   ngOnInit(): void {
+    console.log('Recipes component loaded');
+
     this.loadRecipes();
   }
 
   loadRecipes(): void {
+
+    console.log('Loading recipes...');
 
     this.loading = true;
     this.error = '';
 
     this.recipeService.getRecipes().subscribe({
 
-        next: (response) => {
+      next: (response) => {
 
-            this.recipes = response.data;
+        console.log('Recipes response:', response);
 
-            this.loading = false;
-        },
+        this.recipes = response.data;
 
-        error: (error) => {
+        this.loading = false;
 
-            console.error(error);
+        console.log('Loading is now:', this.loading);
+        console.log('Recipes count:', this.recipes.length);
 
-            this.error = 'Failed to load recipes.';
+      },
 
-            this.loading = false;
-        }
+      error: (error) => {
+
+        console.error('Recipes error:', error);
+
+        this.error = 'Failed to load recipes.';
+
+        this.loading = false;
+
+      }
 
     });
-}
+  }
 }

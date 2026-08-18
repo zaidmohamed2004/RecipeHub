@@ -1,55 +1,208 @@
 <div class="recipes-page">
 
-  <h1>Recipes</h1>
+  <!-- HERO -->
+  <section class="recipes-hero">
 
-  <!-- Loading -->
-  <div *ngIf="loading" class="loading">
-    Loading recipes...
-  </div>
+    <div class="hero-content">
 
-  <!-- Error -->
-  <div *ngIf="!loading && error" class="error">
-    {{ error }}
-  </div>
+      <span class="eyebrow">
+        OUR RECIPES
+      </span>
 
-  <!-- Recipes -->
-  <div
-    *ngIf="!loading && !error"
-    class="recipes-grid"
-  >
-
-    <div
-      *ngFor="let recipe of recipes"
-      class="recipe-card"
-    >
-
-      <h2>
-        {{ recipe.name }}
-      </h2>
+      <h1>
+        Discover
+        <span>Delicious Recipes</span>
+      </h1>
 
       <p>
-        Category: {{ recipe.category }}
-      </p>
-
-      <h3>Ingredients</h3>
-
-      <ul>
-        <li
-          *ngFor="let ingredient of recipe.ingredients"
-        >
-          {{ ingredient.product.name }}
-          × {{ ingredient.quantity }}
-        </li>
-      </ul>
-
-      <h3>Steps</h3>
-
-      <p class="steps">
-        {{ recipe.steps }}
+        Explore our collection of delicious recipes and find something
+        perfect to cook today.
       </p>
 
     </div>
 
-  </div>
+  </section>
+
+
+  <!-- RECIPES -->
+  <section class="recipes-container">
+
+    <!-- HEADER -->
+    <div class="page-header">
+
+      <div>
+
+        <span class="section-label">
+          EXPLORE
+        </span>
+
+        <h2>
+          All Recipes
+        </h2>
+
+        <p>
+          Find your next favorite meal.
+        </p>
+
+      </div>
+
+      <div class="recipe-count">
+
+        {{ recipes.length }}
+
+        <span>
+          recipes
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- LOADING -->
+    @if (loading) {
+
+    <div class="state-container">
+
+      <div class="spinner"></div>
+
+      <h3>
+        Loading recipes...
+      </h3>
+
+      <p>
+        Please wait while we fetch the latest recipes.
+      </p>
+
+    </div>
+
+    }
+
+
+    <!-- ERROR -->
+    @if (!loading && error) {
+
+    <div class="state-container error-state">
+
+      <div class="state-icon">
+        !
+      </div>
+
+      <h3>
+        Something went wrong
+      </h3>
+
+      <p>
+        {{ error }}
+      </p>
+
+      <button class="retry-button" (click)="loadRecipes()">
+
+        Try Again
+
+      </button>
+
+    </div>
+
+    }
+
+
+    <!-- RECIPES GRID -->
+    @if (!loading && !error) {
+
+    <div class="recipes-grid">
+
+      @for (recipe of recipes; track recipe._id) {
+
+      <article class="recipe-card">
+
+        <!-- IMAGE -->
+        <div class="recipe-image">
+
+          <img [src]="recipe.image" [alt]="recipe.name">
+
+          <span class="category-badge">
+            {{ recipe.category }}
+          </span>
+
+        </div>
+
+
+        <!-- CONTENT -->
+        <div class="recipe-content">
+
+          <span class="recipe-category">
+            {{ recipe.category }}
+          </span>
+
+          <h3>
+            {{ recipe.name }}
+          </h3>
+
+          <p>
+            A delicious recipe made with
+            {{ recipe.ingredients.length }}
+            ingredients.
+          </p>
+
+
+          <!-- FOOTER -->
+          <div class="recipe-footer">
+
+            <div class="ingredient-count">
+
+              {{ recipe.ingredients.length }}
+
+              <span>
+                ingredients
+              </span>
+
+            </div>
+
+            <a class="view-recipe" [routerLink]="['/recipes', recipe._id]">
+
+              View Recipe
+
+              <span>
+                →
+              </span>
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+      }
+
+    </div>
+
+    }
+
+
+    <!-- EMPTY STATE -->
+    @if (!loading && !error && recipes.length === 0) {
+
+    <div class="state-container">
+
+      <div class="state-icon">
+        🍽️
+      </div>
+
+      <h3>
+        No recipes found
+      </h3>
+
+      <p>
+        There are no recipes available right now.
+      </p>
+
+    </div>
+
+    }
+
+  </section>
 
 </div>

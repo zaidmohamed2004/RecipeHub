@@ -1,1 +1,665 @@
 /* You can add global styles to this file, and also import other style files */
+/* =========================================
+   RECIPE HUB — GLOBAL STYLES
+========================================= */
+
+:root {
+    /* Colors */
+    --color-primary: #24382f;
+    --color-primary-light: #68736d;
+
+    --color-accent: #b65c35;
+    --color-accent-light: #e8a16f;
+
+    --color-background: #faf8f4;
+    --color-surface: #ffffff;
+    --color-surface-soft: #f5f1eb;
+
+    --color-border: #e8e3dc;
+    --color-border-light: #eeeae4;
+
+    --color-muted: #8a938e;
+    --color-price: #9a8e83;
+
+    --color-image-background: #eeeae4;
+
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+
+    /* Typography */
+    --font-size-xs: 10px;
+    --font-size-sm: 11px;
+    --font-size-md: 14px;
+    --font-size-lg: 16px;
+    --font-size-xl: 28px;
+    --font-size-xxl: 32px;
+
+
+    /* Border Radius */
+    --radius-sm: 7px;
+    --radius-md: 9px;
+    --radius-lg: 10px;
+    --radius-xl: 14px;
+    --radius-pill: 30px;
+
+
+    /* Shadows */
+    --shadow-card:
+        0 10px 30px rgba(36, 56, 47, 0.08);
+
+    --shadow-image:
+        0 20px 45px rgba(36, 56, 47, 0.12);
+
+
+    /* Layout */
+    --container-width: 1150px;
+    --container-padding: 24px;
+
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    background: var(--color-background);
+
+    color: var(--color-primary);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+
+    display: block;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* =========================================
+   COMMON CONTAINER
+========================================= */
+
+.container {
+    width: min(var(--container-width),
+            calc(100% - 48px));
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   COMMON SECTION
+========================================= */
+
+.section {
+    padding: 70px 0;
+}
+
+
+/* =========================================
+   TYPOGRAPHY
+========================================= */
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: var(--color-accent);
+
+    font-size: var(--font-size-sm);
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.section-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--color-muted);
+
+    font-size: var(--font-size-xs);
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.page-title {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: clamp(40px, 5vw, 65px);
+
+    line-height: 1.05;
+}
+
+.section-title {
+    margin: 0;
+
+    color: var(--color-primary);
+
+    font-size: var(--font-size-xxl);
+
+    line-height: 1.2;
+}
+
+.text-muted {
+    color: var(--color-primary-light);
+}
+
+.text-accent {
+    color: var(--color-accent);
+}
+
+
+/* =========================================
+   COMMON BUTTONS
+========================================= */
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 13px 20px;
+
+    border: none;
+
+    border-radius: var(--radius-sm);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background: var(--color-accent);
+}
+
+.btn-secondary {
+    background: var(--color-white);
+
+    color: var(--color-primary);
+
+    border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+    background: var(--color-accent);
+
+    color: var(--color-white);
+
+    border-color: var(--color-accent);
+}
+
+.btn-accent {
+    background: var(--color-accent);
+
+    color: var(--color-white);
+}
+
+.btn-accent:hover {
+    background: var(--color-primary);
+}
+
+
+/* =========================================
+   BACK LINK
+========================================= */
+
+.back-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+
+    color: var(--color-primary-light);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+    color: var(--color-accent);
+}
+
+
+/* =========================================
+   COMMON CARD
+========================================= */
+
+.card {
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-card);
+}
+
+
+/* =========================================
+   CATEGORY BADGE
+========================================= */
+
+.category-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 9px 16px;
+
+    border-radius: var(--radius-pill);
+
+    background: var(--color-white);
+
+    color: var(--color-accent);
+
+    font-size: var(--font-size-xs);
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.image-cover {
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.image-container {
+    overflow: hidden;
+
+    border-radius: var(--radius-xl);
+
+    background: var(--color-image-background);
+
+    box-shadow: var(--shadow-image);
+}
+
+
+/* =========================================
+   META ITEM
+========================================= */
+
+.meta-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+}
+
+.meta-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 125px;
+
+    padding: 14px;
+
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+
+    border-radius: var(--radius-md);
+}
+
+.meta-icon {
+    font-size: 20px;
+}
+
+.meta-item-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.meta-item strong {
+    color: var(--color-primary);
+
+    font-size: var(--font-size-md);
+}
+
+.meta-item small {
+    color: var(--color-muted);
+
+    font-size: var(--font-size-xs);
+}
+
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.section-heading {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 18px;
+
+    margin-bottom: 32px;
+}
+
+.section-number {
+    color: var(--color-accent);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   LOADING STATE
+========================================= */
+
+.state-container {
+    min-height: 70vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 50px 20px;
+
+    text-align: center;
+}
+
+.state-container h2 {
+    margin: 0 0 10px;
+
+    color: var(--color-primary);
+}
+
+.state-container p {
+    max-width: 500px;
+
+    margin: 0 0 25px;
+
+    color: var(--color-primary-light);
+
+    line-height: 1.6;
+}
+
+.state-icon {
+    margin-bottom: 18px;
+
+    font-size: 50px;
+}
+
+.spinner {
+    width: 45px;
+    height: 45px;
+
+    margin-bottom: 22px;
+
+    border: 4px solid var(--color-border);
+
+    border-top-color: var(--color-accent);
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================
+   PRICE
+========================================= */
+
+.price {
+    color: var(--color-price);
+
+    font-size: var(--font-size-sm);
+}
+
+
+/* =========================================
+   QUANTITY
+========================================= */
+
+.quantity {
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-width: 35px;
+
+    height: 30px;
+
+    padding: 0 9px;
+
+    border-radius: var(--radius-pill);
+
+    background: var(--color-surface-soft);
+
+    color: var(--color-accent);
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.divider {
+    width: 100%;
+
+    height: 1px;
+
+    background: var(--color-border);
+}
+
+
+/* =========================================
+   CTA
+========================================= */
+
+.cta {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+
+    padding: 38px 45px;
+
+    border-radius: 13px;
+
+    background: var(--color-primary);
+
+    color: var(--color-white);
+}
+
+.cta-label {
+    color: var(--color-accent-light);
+
+    font-size: var(--font-size-xs);
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.cta h2 {
+    margin: 8px 0 0;
+
+    font-size: 28px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .container {
+        width: min(100% - 40px,
+                var(--container-width));
+    }
+
+    .section {
+        padding: 55px 0;
+    }
+
+    .cta {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .container {
+        width: min(100% - 30px,
+                var(--container-width));
+    }
+
+    .section {
+        padding: 45px 0;
+    }
+
+    .page-title {
+        font-size: 42px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .meta-list {
+        flex-direction: column;
+    }
+
+    .meta-item {
+        width: 100%;
+    }
+
+    .cta {
+        padding: 30px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+}
