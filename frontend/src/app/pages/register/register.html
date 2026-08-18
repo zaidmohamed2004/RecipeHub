@@ -1,1 +1,62 @@
-<p>register works!</p>
+<div class="auth-page">
+  <div class="auth-card">
+
+    <a routerLink="/" class="logo">RecipeHub</a>
+
+    <div class="auth-header">
+      <span>JOIN RECIPEHUB</span>
+      <h1>Create your account</h1>
+      <p>Start discovering delicious recipes today.</p>
+    </div>
+
+    <form>
+
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter your name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Create a password"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Confirm your password"
+        />
+      </div>
+
+      <button type="submit" class="auth-btn">
+        Create Account
+      </button>
+
+    </form>
+
+    <p class="switch-auth">
+      Already have an account?
+      <a routerLink="/login">Sign in</a>
+    </p>
+
+  </div>
+</div>
