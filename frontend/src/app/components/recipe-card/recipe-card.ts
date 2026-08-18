@@ -1,16 +1,41 @@
-import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  Component,
+  Input
+} from '@angular/core';
+
+import {
+  RouterLink
+} from '@angular/router';
 
 @Component({
   selector: 'app-recipe-card',
-  imports: [RouterLink],
+
+  imports: [
+    RouterLink
+  ],
+
   templateUrl: './recipe-card.html',
+
   styleUrl: './recipe-card.css'
 })
 export class RecipeCard {
-  @Input() title = '';
-  @Input() category = '';
-  @Input() description = '';
-  @Input() rating = 0;
-  @Input() image = '';
+
+  @Input()
+  id = '';
+
+  @Input()
+  title = '';
+
+  @Input()
+  category = '';
+
+  @Input()
+  description = '';
+
+  @Input()
+  rating = 0;
+
+  @Input()
+  image = '';
+
 }

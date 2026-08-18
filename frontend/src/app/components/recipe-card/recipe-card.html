@@ -1,11 +1,17 @@
 <div class="recipe-card">
 
-  <div class="recipe-image">
+  <a
+    [routerLink]="['/recipes', id]"
+    class="recipe-image"
+  >
+
     <img
       [src]="image"
       [alt]="title"
     />
-  </div>
+
+  </a>
+
 
   <div class="recipe-content">
 
@@ -21,14 +27,18 @@
       {{ description }}
     </p>
 
+
     <div class="recipe-footer">
 
       <div class="rating">
+
         ★ {{ rating }}
+
       </div>
 
+
       <a
-        [routerLink]="['/recipe', title]"
+        [routerLink]="['/recipes', id]"
         class="view-recipe"
       >
         View Recipe →

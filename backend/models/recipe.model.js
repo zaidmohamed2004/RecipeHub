@@ -4,10 +4,15 @@ const recipeSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        min: 2
+        minlength: 2
     },
 
     category: {
+        type: String,
+        required: true
+    },
+
+    image: {
         type: String,
         required: true
     },
@@ -22,8 +27,7 @@ const recipeSchema = new mongoose.Schema({
 
             quantity: {
                 type: Number,
-                required: true,
-                min: 1
+                required: true
             }
         }
     ],
@@ -34,6 +38,4 @@ const recipeSchema = new mongoose.Schema({
     }
 });
 
-const recipeModel = mongoose.model("Recipe", recipeSchema);
-
-module.exports = recipeModel;
+module.exports = mongoose.model("Recipe", recipeSchema);
