@@ -15,9 +15,6 @@ const orderRoutes = require("./Routs/orderRoutes");
 
 const port = process.env.PORT || 7777;
 
-// =========================
-// MIDDLEWARE
-// =========================
 
 app.use(cors());
 
@@ -28,15 +25,10 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// =========================
-// DATABASE
-// =========================
 
 connection();
 
-// =========================
-// ROUTES
-// =========================
+
 
 app.use("/products", productRoutes);
 
@@ -48,9 +40,7 @@ app.use("/cart", cartRoutes);
 
 app.use("/orders", orderRoutes);
 
-// =========================
-// SERVER
-// =========================
+
 
 app.listen(port, () => {
     console.log(`RecipeHub app listening on port ${port}`);

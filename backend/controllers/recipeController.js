@@ -20,7 +20,6 @@ const createRecipe = async (req, res) => {
 
 const getAllRecipes = async (req, res) => {
     try {
-        // تحويل القيم لأرقام لتجنب مشاكل الـ Types
         let limit = parseInt(req.query.limit) || 10;
         let page = parseInt(req.query.page) || 1;
 
@@ -28,7 +27,7 @@ const getAllRecipes = async (req, res) => {
 
         const recipes = await Recipe
             .find()
-            .populate("ingredients.product") // 👈 إضافة الـ Populate هنا
+            .populate("ingredients.product") 
             .limit(limit)
             .skip(skip);
 
@@ -51,7 +50,7 @@ const getAllRecipes = async (req, res) => {
 const getRecipeById = async (req, res) => {
     try {
         const recipe = await Recipe.findById(req.params.id)
-            .populate("ingredients.product"); // 👈 وإضافة الـ Populate هنا كمان
+            .populate("ingredients.product");
 
         if (!recipe) {
             return res.status(404).json({
