@@ -1,1 +1,127 @@
-<p>cart works!</p>
+<section class="cart-section">
+
+  <div class="cart-header">
+    <div>
+      <span class="section-label">YOUR CART</span>
+
+      <h1>Shopping Cart</h1>
+
+      <p>
+        Review your ingredients and get everything ready for your next meal.
+      </p>
+    </div>
+  </div>
+
+
+  @if (loading) {
+    <div class="cart-message">
+      <p>Loading your cart...</p>
+    </div>
+  }
+
+
+  @if (error) {
+    <div class="cart-message error">
+      <p>{{ error }}</p>
+    </div>
+  }
+
+
+  @if (!loading && !error && cart) {
+
+    @if (cart.items.length === 0) {
+
+      <div class="empty-cart">
+        <div class="empty-icon">🛒</div>
+
+        <h2>Your cart is empty</h2>
+
+        <p>
+          Add some ingredients and start cooking something delicious.
+        </p>
+
+        <a routerLink="/store" class="cta-btn">
+          Visit Store
+        </a>
+      </div>
+
+    }
+
+
+    @if (cart.items.length > 0) {
+
+      <div class="cart-layout">
+
+        <div class="cart-items">
+
+          @for (item of cart.items; track item.product._id) {
+
+            <div class="cart-item">
+
+              <div class="product-info">
+
+                <div class="product-placeholder">
+                  🥕
+                </div>
+
+                <div>
+                  <h3>{{ item.product.name }}</h3>
+
+                  <p>
+                    {{ item.product.price }} EGP
+                  </p>
+                </div>
+
+              </div>
+
+
+              <div class="quantity">
+                <span>Quantity</span>
+                <strong>{{ item.quantity }}</strong>
+              </div>
+
+
+              <div class="item-total">
+                <span>
+                  {{ item.product.price * item.quantity }} EGP
+                </span>
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <aside class="cart-summary">
+
+          <span class="section-label">ORDER SUMMARY</span>
+
+          <h2>Cart Total</h2>
+
+          <div class="summary-row">
+            <span>Items</span>
+            <span>{{ cart.items.length }}</span>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-total">
+            <span>Total</span>
+            <strong>{{ getTotal() }} EGP</strong>
+          </div>
+
+          <button class="checkout-btn">
+            Proceed to Checkout
+          </button>
+
+        </aside>
+
+      </div>
+
+    }
+
+  }
+
+</section>
