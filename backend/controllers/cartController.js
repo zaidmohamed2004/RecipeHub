@@ -1,11 +1,12 @@
 const Cart = require("../models/cart.model");
-const Recipe = require("../models/recipe.model"); // 1. استيراد موديل الوصفات
+const Recipe = require("../models/recipe.model");
 
 // إضافة منتج منفرد للسلة
 const addToCart = async (req, res) => {
     try {
         const { product, quantity } = req.body;
         const user = req.userId;
+
         let cart = await Cart.findOne({ user });
 
         // لو المستخدم معندوش Cart
@@ -19,7 +20,7 @@ const addToCart = async (req, res) => {
                     }
                 ]
             });
-        } 
+        }
         // لو عنده Cart بالفعل
         else {
             const existingItem = cart.items.find(
@@ -28,8 +29,7 @@ const addToCart = async (req, res) => {
 
             if (existingItem) {
                 existingItem.quantity += quantity;
-            } 
-            else {
+            } else {
                 cart.items.push({
                     product,
                     quantity
@@ -44,14 +44,14 @@ const addToCart = async (req, res) => {
             cart
         });
 
-    } 
-    catch (error) {
+    } catch (error) {
         res.status(500).json({
             msg: "Error",
             error: error.message
         });
     }
 };
+
 
 // تحويل جميع مكونات الوصفة لمنتجات وإضافتها للسلة
 const addRecipeToCart = async (req, res) => {
@@ -59,16 +59,18 @@ const addRecipeToCart = async (req, res) => {
         const { recipeId } = req.body;
         const user = req.userId;
 
-        // 1. البحث عن الوصفة ومكوناتها
+        // البحث عن الوصفة ومكوناتها
         const recipe = await Recipe.findById(recipeId);
+
         if (!recipe) {
             return res.status(404).json({
                 message: "Recipe not found"
             });
         }
 
-        // البحث عن سلة المستخدم (أو إنشائها لو مش موجودة)
+        // البحث عن سلة المستخدم أو إنشائها
         let cart = await Cart.findOne({ user });
+
         if (!cart) {
             cart = new Cart({
                 user,
@@ -76,26 +78,31 @@ const addRecipeToCart = async (req, res) => {
             });
         }
 
-        // المرور على كل مكونات الوصفة وإضافتها للسلة
+        // إضافة كل مكونات الوصفة للسلة
         recipe.ingredients.forEach(ingredient => {
+
             const existingItem = cart.items.find(
-                item => item.product.toString() === ingredient.product.toString()
+                item =>
+                    item.product.toString() ===
+                    ingredient.product.toString()
             );
 
             if (existingItem) {
-                // لو المنتج موجود مسبقاً نزيد الكمية
+
+                // المنتج موجود بالفعل
                 existingItem.quantity += ingredient.quantity;
-            } 
-            else {
-                // لو مش موجود نضيفه كمنتج جديد في السلة
+
+            } else {
+
+                // إضافة المنتج لأول مرة
                 cart.items.push({
                     product: ingredient.product,
                     quantity: ingredient.quantity
                 });
+
             }
         });
 
-        // حفظ التعديلات في قاعدة البيانات
         await cart.save();
 
         res.status(200).json({
@@ -103,8 +110,7 @@ const addRecipeToCart = async (req, res) => {
             cart
         });
 
-    } 
-    catch (error) {
+    } catch (error) {
         res.status(500).json({
             msg: "Error",
             error: error.message
@@ -112,29 +118,41 @@ const addRecipeToCart = async (req, res) => {
     }
 };
 
+
 // عرض السلة للمستخدم
 const getCart = async (req, res) => {
     try {
-        const cart = await Cart.findOne({ user: req.userId }).populate("items.product");
 
+        let cart = await Cart.findOne({
+            user: req.userId
+        });
+
+        // لو المستخدم لسه معندوش Cart
+        // ننشئ له Cart فاضية بدل 404
         if (!cart) {
-            return res.status(404).json({
-                message: "Cart not found"
+            cart = await Cart.create({
+                user: req.userId,
+                items: []
             });
         }
+
+        // تحميل بيانات المنتجات الموجودة في السلة
+        cart = await cart.populate("items.product");
 
         res.status(200).json({
             cart
         });
 
-    } 
-    catch (error) {
+    } catch (error) {
+
         res.status(500).json({
             message: "Error",
             error: error.message
         });
+
     }
 };
+
 
 module.exports = {
     addToCart,

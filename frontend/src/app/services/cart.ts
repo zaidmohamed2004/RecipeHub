@@ -32,7 +32,11 @@ export class CartService {
     return this.http.get<CartResponse>(this.apiUrl);
   }
 
-  addToCart(product: string, quantity: number): Observable<CartResponse> {
+  addToCart(
+    product: string,
+    quantity: number
+  ): Observable<CartResponse> {
+
     return this.http.post<CartResponse>(
       `${this.apiUrl}/add`,
       {
@@ -42,7 +46,10 @@ export class CartService {
     );
   }
 
-  addRecipeToCart(recipeId: string): Observable<CartResponse> {
+  addRecipeToCart(
+    recipeId: string
+  ): Observable<CartResponse> {
+
     return this.http.post<CartResponse>(
       `${this.apiUrl}/add-recipe`,
       {

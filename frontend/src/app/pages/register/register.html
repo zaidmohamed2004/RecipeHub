@@ -10,36 +10,66 @@
     </div>
 
     <form #registerForm="ngForm" (ngSubmit)="handleSubmit(registerForm)" novalidate>
+<!-- First Name -->
+<div class="form-group">
+  <label for="firstName">First Name</label>
 
-      <!-- Full Name -->
-      <div class="form-group">
-        <label for="name">Full Name</label>
+  <input
+    id="firstName"
+    type="text"
+    name="firstName"
+    placeholder="Enter your first name"
+    [(ngModel)]="user.firstName"
+    #firstName="ngModel"
+    required
+    minlength="2"
+  />
 
-        <input
-          id="name"
-          type="text"
-          name="name"
-          placeholder="Enter your name"
-          [(ngModel)]="user.name"
-          #name="ngModel"
-          required
-          minlength="3"
-        />
+  @if (firstName.invalid && (firstName.touched || registerForm.submitted)) {
+    <div class="error">
 
-        @if (name.invalid && (name.touched || registerForm.submitted)) {
-          <div class="error">
+      @if (firstName.errors?.['required']) {
+        <small>First name is required.</small>
+      }
 
-            @if (name.errors?.['required']) {
-              <small>Full name is required.</small>
-            }
+      @if (firstName.errors?.['minlength']) {
+        <small>First name must be at least 2 characters.</small>
+      }
 
-            @if (name.errors?.['minlength']) {
-              <small>Name must be at least 3 characters.</small>
-            }
+    </div>
+  }
+</div>
 
-          </div>
-        }
-      </div>
+
+<!-- Last Name -->
+<div class="form-group">
+  <label for="lastName">Last Name</label>
+
+  <input
+    id="lastName"
+    type="text"
+    name="lastName"
+    placeholder="Enter your last name"
+    [(ngModel)]="user.lastName"
+    #lastName="ngModel"
+    required
+    minlength="2"
+  />
+
+  @if (lastName.invalid && (lastName.touched || registerForm.submitted)) {
+    <div class="error">
+
+      @if (lastName.errors?.['required']) {
+        <small>Last name is required.</small>
+      }
+
+      @if (lastName.errors?.['minlength']) {
+        <small>Last name must be at least 2 characters.</small>
+      }
+
+    </div>
+  }
+</div>
 
 
       <!-- Email -->

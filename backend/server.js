@@ -21,6 +21,11 @@ const port = process.env.PORT || 7777;
 
 app.use(cors());
 
+app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store');
+    next();
+});
+
 app.use(express.json());
 
 // =========================
