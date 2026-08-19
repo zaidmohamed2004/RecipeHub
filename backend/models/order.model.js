@@ -15,7 +15,7 @@ const orderSchema = new mongoose.Schema(
           required: true,
         },
         quantity: { type: Number, required: true },
-        price: { type: Number, required: true }, // بنسيف السعر لحظة الشراء
+        price: { type: Number, required: true },
       },
     ],
     shippingAddress: {

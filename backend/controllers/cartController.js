@@ -1,15 +1,12 @@
 const Cart = require("../models/cart.model");
 const Recipe = require("../models/recipe.model");
 
-// إضافة منتج منفرد للسلة
 const addToCart = async (req, res) => {
     try {
         const { product, quantity } = req.body;
         const user = req.userId;
-
         let cart = await Cart.findOne({ user });
 
-        // لو المستخدم معندوش Cart
         if (!cart) {
             cart = await Cart.create({
                 user,
@@ -20,8 +17,7 @@ const addToCart = async (req, res) => {
                     }
                 ]
             });
-        }
-        // لو عنده Cart بالفعل
+        } 
         else {
             const existingItem = cart.items.find(
                 item => item.product.toString() === product
@@ -29,7 +25,8 @@ const addToCart = async (req, res) => {
 
             if (existingItem) {
                 existingItem.quantity += quantity;
-            } else {
+            } 
+            else {
                 cart.items.push({
                     product,
                     quantity
@@ -44,7 +41,8 @@ const addToCart = async (req, res) => {
             cart
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).json({
             msg: "Error",
             error: error.message
@@ -52,25 +50,19 @@ const addToCart = async (req, res) => {
     }
 };
 
-
-// تحويل جميع مكونات الوصفة لمنتجات وإضافتها للسلة
 const addRecipeToCart = async (req, res) => {
     try {
         const { recipeId } = req.body;
         const user = req.userId;
 
-        // البحث عن الوصفة ومكوناتها
         const recipe = await Recipe.findById(recipeId);
-
         if (!recipe) {
             return res.status(404).json({
                 message: "Recipe not found"
             });
         }
 
-        // البحث عن سلة المستخدم أو إنشائها
         let cart = await Cart.findOne({ user });
-
         if (!cart) {
             cart = new Cart({
                 user,
@@ -78,28 +70,19 @@ const addRecipeToCart = async (req, res) => {
             });
         }
 
-        // إضافة كل مكونات الوصفة للسلة
         recipe.ingredients.forEach(ingredient => {
-
             const existingItem = cart.items.find(
-                item =>
-                    item.product.toString() ===
-                    ingredient.product.toString()
+                item => item.product.toString() === ingredient.product.toString()
             );
 
             if (existingItem) {
-
-                // المنتج موجود بالفعل
                 existingItem.quantity += ingredient.quantity;
-
-            } else {
-
-                // إضافة المنتج لأول مرة
+            } 
+            else {
                 cart.items.push({
                     product: ingredient.product,
                     quantity: ingredient.quantity
                 });
-
             }
         });
 
@@ -110,7 +93,8 @@ const addRecipeToCart = async (req, res) => {
             cart
         });
 
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).json({
             msg: "Error",
             error: error.message
@@ -118,41 +102,28 @@ const addRecipeToCart = async (req, res) => {
     }
 };
 
-
-// عرض السلة للمستخدم
 const getCart = async (req, res) => {
     try {
+        const cart = await Cart.findOne({ user: req.userId }).populate("items.product");
 
-        let cart = await Cart.findOne({
-            user: req.userId
-        });
-
-        // لو المستخدم لسه معندوش Cart
-        // ننشئ له Cart فاضية بدل 404
         if (!cart) {
-            cart = await Cart.create({
-                user: req.userId,
-                items: []
+            return res.status(404).json({
+                message: "Cart not found"
             });
         }
-
-        // تحميل بيانات المنتجات الموجودة في السلة
-        cart = await cart.populate("items.product");
 
         res.status(200).json({
             cart
         });
 
-    } catch (error) {
-
+    } 
+    catch (error) {
         res.status(500).json({
             message: "Error",
             error: error.message
         });
-
     }
 };
-
 
 module.exports = {
     addToCart,
