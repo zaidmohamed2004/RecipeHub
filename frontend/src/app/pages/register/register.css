@@ -127,3 +127,11 @@
   font-weight: 600;
   text-decoration: none;
 }
+.error {
+  margin-top: 6px;
+}
+
+.error small {
+  color: #c0392b;
+  font-size: 13px;
+}
