@@ -28,16 +28,13 @@ export class Cart implements OnInit {
       next: (response) => {
         this.cart = response.cart;
         this.loading = false;
-
-        console.log('Cart:', this.cart);
       },
 
       error: (err) => {
         this.loading = false;
 
-        console.error('Cart error:', err);
-
-        this.error = err.error?.message || 'Failed to load cart';
+        this.error =
+          err.error?.message || 'Failed to load cart.';
       }
     });
   }
