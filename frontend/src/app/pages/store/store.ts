@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { ProductService, Product } from '../../services/product';
+import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-store',
@@ -12,6 +13,10 @@ export class Store implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   private readonly productService = inject(ProductService);
+  constructor(
+    private cartService: CartService
+  ) { }
+
 
   products: Product[] = [];
   loading = false;
@@ -19,6 +24,24 @@ export class Store implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts();
+  }
+
+  addToCart(product: Product): void {
+    console.log('PRODUCT TO ADD:', product);
+
+
+    this.cartService.addToCart(product._id, 1).subscribe({
+
+      next: (response) => {
+        console.log('Product added to cart:', response);
+      },
+
+      error: (err) => {
+        console.error('Failed to add product to cart:', err);
+      }
+
+    });
+
   }
 
   loadProducts(): void {

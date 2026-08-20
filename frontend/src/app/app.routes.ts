@@ -21,7 +21,7 @@ export const routes: Routes = [
     },
 
     {
-        path: 'recipes/:id',
+        path: 'recipe-details/:id',
         component: RecipeDetails
     },
 
