@@ -1,107 +1,119 @@
 <div class="recipe-details-page">
 
-  <!-- LOADING -->
+  <!-- =========================
+       LOADING
+  ========================== -->
 
   @if (loading) {
 
-  <section class="state-container">
+    <section class="state-container">
 
-    <div class="spinner"></div>
+      <div class="spinner"></div>
 
-    <h2>
-      Loading recipe...
-    </h2>
+      <h2>
+        Loading recipe...
+      </h2>
 
-    <p>
-      Please wait while we fetch the recipe details.
-    </p>
+      <p>
+        Please wait while we fetch the recipe details.
+      </p>
 
-  </section>
+    </section>
 
   }
 
 
-  <!-- ERROR -->
+  <!-- =========================
+       ERROR
+  ========================== -->
 
   @if (!loading && error) {
 
-  <section class="state-container error-state">
+    <section class="state-container error-state">
 
-    <div class="state-icon">
-      ⚠️
-    </div>
+      <div class="state-icon">
+        !
+      </div>
 
-    <h2>
-      Recipe Not Found
-    </h2>
+      <h2>
+        Something went wrong
+      </h2>
 
-    <p>
-      {{ error }}
-    </p>
+      <p>
+        {{ error }}
+      </p>
 
-    <a routerLink="/recipes" class="back-button">
-      ← Back to Recipes
-    </a>
+      <a
+        routerLink="/recipes"
+        class="back-button"
+      >
+        ← Back to Recipes
+      </a>
 
-  </section>
+    </section>
 
   }
 
 
-  <!-- RECIPE -->
+  <!-- =========================
+       RECIPE DETAILS
+  ========================== -->
 
   @if (!loading && !error && recipe) {
 
-  <main class="details-container">
+    <div class="details-container">
 
-    <!-- BACK -->
+      <!-- =========================
+           TOP NAV
+      ========================== -->
 
-    <a routerLink="/recipes" class="back-link">
-      ← Back to Recipes
-    </a>
-
-
-    <!-- RECIPE HEADER -->
-
-    <section class="recipe-header">
-
-      <div class="recipe-image">
-
-        <img [src]="recipe.image" [alt]="recipe.name" />
-
-        <span class="category-badge">
-          {{ recipe.category }}
-        </span>
-
-      </div>
+      <a
+        routerLink="/recipes"
+        class="back-link"
+      >
+        ← Back to Recipes
+      </a>
 
 
-      <div class="recipe-introduction">
+      <!-- =========================
+           HERO
+      ========================== -->
 
-        <span class="eyebrow">
-          RECIPE
-        </span>
+      <section class="recipe-hero">
 
-        <h1>
-          {{ recipe.name }}
-        </h1>
+        <div class="recipe-hero-image">
 
-        <p class="intro-text">
-          Discover how to prepare this delicious
-          {{ recipe.category.toLowerCase() }} recipe
-          with simple ingredients and clear instructions.
-        </p>
+          <img
+            [src]="recipe.image"
+            [alt]="recipe.name"
+          >
+
+          <span class="category-badge">
+            {{ recipe.category }}
+          </span>
+
+        </div>
 
 
-        <div class="recipe-meta">
+        <div class="recipe-hero-content">
 
-          <div class="meta-item">
+          <span class="eyebrow">
+            {{ recipe.category }}
+          </span>
 
-            <span class="meta-icon">
-              🥕
-            </span>
+          <h1>
+            {{ recipe.name }}
+          </h1>
 
-            <div>
+          <p class="hero-description">
+            Everything you need to prepare this delicious
+            recipe, from ingredients to cooking steps.
+          </p>
+
+
+          <div class="recipe-meta">
+
+            <div class="meta-item">
 
               <strong>
                 {{ recipe.ingredients.length }}
@@ -113,16 +125,11 @@
 
             </div>
 
-          </div>
+
+            <div class="meta-divider"></div>
 
 
-          <div class="meta-item">
-
-            <span class="meta-icon">
-              📋
-            </span>
-
-            <div>
+            <div class="meta-item">
 
               <strong>
                 {{ getStepList().length }}
@@ -136,48 +143,44 @@
 
           </div>
 
-
-          <div class="meta-item">
-
-            <span class="meta-icon">
-              🍽️
-            </span>
-
-            <div>
-
-              <strong>
-                {{ recipe.category }}
-              </strong>
-
-              <span>
-                Category
-              </span>
-
-            </div>
-
-          </div>
+          <!--
+            مفيش Add Recipe to Cart هنا
+            لأن الوصفة مش منتج
+          -->
 
         </div>
 
-      </div>
-
-    </section>
+      </section>
 
 
-    <!-- CONTENT -->
+      <!-- =========================
+           MESSAGE
+      ========================== -->
 
-    <section class="recipe-body">
+      @if (message) {
+
+        <div
+          class="message"
+          [class.success-message]="messageType === 'success'"
+          [class.error-message]="messageType === 'error'"
+        >
+
+          <span>
+            {{ message }}
+          </span>
+
+        </div>
+
+      }
 
 
-      <!-- INGREDIENTS -->
+      <!-- =========================
+           INGREDIENTS
+      ========================== -->
 
-      <div class="ingredients-section">
+      <section class="content-section">
 
         <div class="section-heading">
-
-          <span class="section-number">
-            01
-          </span>
 
           <div>
 
@@ -189,62 +192,164 @@
               Ingredients
             </h2>
 
+            <p>
+              Get everything you need to prepare this recipe.
+            </p>
+
           </div>
+
+
+          <!-- =========================
+               ADD ALL PRODUCTS
+          ========================== -->
+
+          <button
+            class="add-recipe-button"
+            type="button"
+            (click)="addAllIngredientsToCart()"
+            [disabled]="addingRecipe"
+          >
+
+            @if (addingRecipe) {
+
+              <span class="button-spinner"></span>
+
+              Adding...
+
+            } @else {
+
+              🛒 Add All Products
+
+            }
+
+          </button>
 
         </div>
 
 
+        <!-- =========================
+             INGREDIENTS LIST
+        ========================== -->
+
         <div class="ingredients-list">
 
           @for (
-          ingredient of recipe.ingredients;
-          track ingredient.product._id
+            ingredient of recipe.ingredients;
+            track ingredient.product._id
           ) {
 
-          <div class="ingredient">
+            <article class="ingredient-card">
 
-            <div class="ingredient-info">
+        <!-- PRODUCT ICON -->
 
-              <span class="ingredient-dot"></span>
+<div class="ingredient-icon">
 
-              <div>
+  <span class="ingredient-emoji">
+    {{ getIngredientIcon(ingredient.product.name) }}
+  </span>
 
-                <strong>
+</div>
+
+
+              <!-- PRODUCT INFO -->
+
+              <div class="ingredient-info">
+
+                <h3>
                   {{ ingredient.product.name }}
-                </strong>
+                </h3>
+
+                <p>
+                  {{ ingredient.quantity }} unit(s)
+                </p>
 
                 <span class="ingredient-price">
+
                   {{ ingredient.product.price }}
                   EGP
+
                 </span>
 
               </div>
 
-            </div>
+
+              <!-- ACTIONS -->
+
+              <div class="ingredient-actions">
+
+                <!-- VIEW STORE -->
+
+                <button
+                  type="button"
+                  class="store-button"
+                  (click)="
+                    goToStore(
+                      ingredient.product._id
+                    )
+                  "
+                >
+
+                  View in Store
+
+                </button>
 
 
-            <span class="quantity">
-              {{ ingredient.quantity }}
-            </span>
+                <!-- ADD TO CART -->
 
-          </div>
+                <button
+                  type="button"
+                  class="ingredient-cart-button"
+                  (click)="
+                    addIngredientToCart(
+                      ingredient.product._id,
+                      ingredient.quantity
+                    )
+                  "
+                  [disabled]="
+                    isAddingProduct(
+                      ingredient.product._id
+                    )
+                  "
+                >
+
+                  @if (
+                    isAddingProduct(
+                      ingredient.product._id
+                    )
+                  ) {
+
+                    <span class="button-spinner"></span>
+
+                    Adding...
+
+                  } @else {
+
+                    🛒 Add to Cart
+
+                  }
+
+                </button>
+
+              </div>
+
+            </article>
 
           }
 
         </div>
 
-      </div>
+      </section>
 
 
-      <!-- STEPS -->
+      <!-- =========================
+           COOKING STEPS
+      ========================== -->
 
-      <div class="steps-section">
+      <section
+        class="content-section steps-section"
+      >
 
         <div class="section-heading">
-
-          <span class="section-number">
-            02
-          </span>
 
           <div>
 
@@ -253,8 +358,12 @@
             </span>
 
             <h2>
-              Instructions
+              Cooking Steps
             </h2>
+
+            <p>
+              Follow these simple steps to prepare your meal.
+            </p>
 
           </div>
 
@@ -264,59 +373,77 @@
         <div class="steps-list">
 
           @for (
-          step of getStepList();
-          track $index
+            step of getStepList();
+            track $index
           ) {
 
-          <div class="step">
+            <article class="step-card">
 
-            <div class="step-number">
-              {{ $index + 1 }}
-            </div>
+              <div class="step-number">
+                {{ $index + 1 }}
+              </div>
 
-            <div class="step-content">
 
-              <p>
-                {{ step }}
-              </p>
+              <div class="step-content">
 
-            </div>
+                <span>
+                  STEP {{ $index + 1 }}
+                </span>
 
-          </div>
+                <p>
+                  {{ step }}
+                </p>
+
+              </div>
+
+            </article>
 
           }
 
         </div>
 
-      </div>
-
-    </section>
+      </section>
 
 
-    <!-- BOTTOM CTA -->
+      <!-- =========================
+           BOTTOM CTA
+      ========================== -->
 
-    <section class="recipe-bottom">
+      <section class="bottom-cta">
 
-      <div>
+        <div>
 
-        <span>
-          READY TO COOK?
-        </span>
+          <span>
+            READY TO COOK?
+          </span>
 
-        <h2>
-          Enjoy your meal! 🍽️
-        </h2>
+          <h2>
+            Got everything you need?
+          </h2>
 
-      </div>
+          <p>
+            Check your cart and start cooking.
+          </p>
 
-      <a routerLink="/recipes" class="browse-button">
-        Browse More Recipes
-        <span>→</span>
-      </a>
+        </div>
 
-    </section>
 
-  </main>
+        <!-- VIEW CART -->
+
+        <button
+          type="button"
+          class="add-recipe-button bottom-button"
+          (click)="viewCart()"
+        >
+
+          🛒 View Cart
+
+        </button>
+
+      </section>
+
+
+    </div>
 
   }
 

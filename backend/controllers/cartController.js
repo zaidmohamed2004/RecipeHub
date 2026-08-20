@@ -4,13 +4,14 @@ const Recipe = require("../models/recipe.model");
 // إضافة منتج منفرد للسلة
 const addToCart = async (req, res) => {
     try {
+
         const { product, quantity } = req.body;
         const user = req.userId;
 
         let cart = await Cart.findOne({ user });
 
-        // لو المستخدم معندوش Cart
         if (!cart) {
+
             cart = await Cart.create({
                 user,
                 items: [
@@ -20,24 +21,32 @@ const addToCart = async (req, res) => {
                     }
                 ]
             });
-        }
-        // لو عنده Cart بالفعل
-        else {
+
+        } else {
+
             const existingItem = cart.items.find(
-                item => item.product.toString() === product
+                item =>
+                    item.product.toString() === product
             );
 
             if (existingItem) {
+
                 existingItem.quantity += quantity;
+
             } else {
+
                 cart.items.push({
                     product,
                     quantity
                 });
+
             }
 
             await cart.save();
         }
+
+        // مهم
+        await cart.populate("items.product");
 
         res.status(201).json({
             msg: "Product added to cart",
@@ -45,13 +54,16 @@ const addToCart = async (req, res) => {
         });
 
     } catch (error) {
+
+        console.error("ADD TO CART ERROR:", error);
+
         res.status(500).json({
             msg: "Error",
             error: error.message
         });
+
     }
 };
-
 
 // تحويل جميع مكونات الوصفة لمنتجات وإضافتها للسلة
 const addRecipeToCart = async (req, res) => {

@@ -96,4 +96,46 @@ export class Cart implements OnInit {
       0
     );
   }
+  getProductIcon(productName: string): string {
+
+  const name = productName.toLowerCase();
+
+  if (name.includes('chicken breast')) return '🍗';
+  if (name.includes('chicken thighs')) return '🍗';
+  if (name.includes('ground beef')) return '🥩';
+  if (name.includes('beef steak')) return '🥩';
+  if (name.includes('bacon')) return '🥓';
+
+  if (name.includes('tomato')) return '🍅';
+  if (name.includes('onion')) return '🧅';
+  if (name.includes('garlic')) return '🧄';
+  if (name.includes('bell pepper')) return '🫑';
+  if (name.includes('mushroom')) return '🍄';
+  if (name.includes('spinach')) return '🥬';
+  if (name.includes('potato')) return '🥔';
+  if (name.includes('carrot')) return '🥕';
+  if (name.includes('cucumber')) return '🥒';
+  if (name.includes('lettuce')) return '🥬';
+
+  if (name.includes('milk')) return '🥛';
+  if (name.includes('butter')) return '🧈';
+  if (name.includes('cheddar')) return '🧀';
+  if (name.includes('mozzarella')) return '🧀';
+  if (name.includes('parmesan')) return '🧀';
+  if (name.includes('cream')) return '🥛';
+
+  if (name.includes('flour')) return '🌾';
+  if (name.includes('pasta')) return '🍝';
+  if (name.includes('rice')) return '🍚';
+  if (name.includes('bread')) return '🍞';
+  if (name.includes('tortilla')) return '🌯';
+
+  if (name.includes('egg')) return '🥚';
+  if (name.includes('olive oil')) return '🫒';
+  if (name.includes('salt')) return '🧂';
+  if (name.includes('black pepper')) return '🌶️';
+  if (name.includes('tomato sauce')) return '🍅';
+
+  return '🛒';
+}
 }

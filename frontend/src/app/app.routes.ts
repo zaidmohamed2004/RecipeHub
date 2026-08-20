@@ -10,44 +10,44 @@ import { Store } from './pages/store/store';
 
 export const routes: Routes = [
 
-    {
-        path: '',
-        component: Home
-    },
+  {
+    path: '',
+    component: Home
+  },
 
-    {
-        path: 'recipes',
-        component: Recipes
-    },
+  {
+    path: 'recipes',
+    component: Recipes
+  },
 
-    {
-        path: 'recipe-details/:id',
-        component: RecipeDetails
-    },
+  {
+    path: 'recipes/:id',
+    component: RecipeDetails
+  },
 
-    {
-        path: 'login',
-        component: Login
-    },
+  {
+    path: 'login',
+    component: Login
+  },
 
-    {
-        path: 'register',
-        component: Register
-    },
+  {
+    path: 'register',
+    component: Register
+  },
 
-    {
-        path: 'cart',
-        component: Cart
-    },
+  {
+    path: 'cart',
+    component: Cart
+  },
 
-    {
-        path: 'store',
-        component: Store
-    },
+  {
+    path: 'store',
+    component: Store
+  },
 
-    {
-        path: '**',
-        redirectTo: ''
-    }
+  {
+    path: '**',
+    redirectTo: ''
+  }
 
 ];

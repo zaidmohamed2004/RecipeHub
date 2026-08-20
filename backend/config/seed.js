@@ -9,7 +9,7 @@ const connection = require("./db.js");
 const Product = require("../models/product.model.js");
 const Recipe = require("../models/recipe.model.js");
 const User = require("../models/user.model.js");
-
+const Cart = require("../models/cart.model.js");
 
 // =====================================================
 // PRODUCTS
@@ -245,6 +245,7 @@ async function seed() {
         await Product.deleteMany({});
         await Recipe.deleteMany({});
         await User.deleteMany({});
+        await Cart.deleteMany({});
 
         console.log("Old products deleted");
         console.log("Old recipes deleted");
