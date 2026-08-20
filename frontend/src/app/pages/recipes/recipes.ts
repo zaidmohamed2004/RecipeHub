@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -13,6 +13,8 @@ import { RecipeService } from '../../services/recipe';
   styleUrl: './recipes.css'
 })
 export class Recipes implements OnInit {
+
+  private cdr = inject(ChangeDetectorRef);
 
   private recipeService = inject(RecipeService);
 
@@ -44,6 +46,8 @@ export class Recipes implements OnInit {
         this.recipes = response.data;
 
         this.loading = false;
+        this.cdr.detectChanges();
+
 
         console.log('Loading is now:', this.loading);
         console.log('Recipes count:', this.recipes.length);

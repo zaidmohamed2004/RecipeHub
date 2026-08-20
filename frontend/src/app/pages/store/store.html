@@ -1,1 +1,98 @@
-<p>store works!</p>
+<section class="store">
+
+    <div class="store-header">
+        <h1>Our Store</h1>
+        <p>Choose the ingredients you need for your favorite recipes.</p>
+    </div>
+
+    @if (loading) {
+    <div class="loading">
+        <p>Loading products...</p>
+    </div>
+    }
+
+    @if (errorMessage) {
+    <div class="error">
+        {{ errorMessage }}
+    </div>
+    }
+
+    @if (!loading && !errorMessage && products.length > 0) {
+
+    <div class="products-grid">
+
+        @for (product of products; track product._id) {
+
+        <div class="product-card">
+
+            <div class="product-image">
+                <span>
+                    {{
+                    product.name.toLowerCase().includes('chicken') ? '🍗' :
+                    product.name.toLowerCase().includes('beef') ? '🥩' :
+                    product.name.toLowerCase().includes('fish') ? '🐟' :
+                    product.name.toLowerCase().includes('shrimp') ? '🍤' :
+                    product.name.toLowerCase().includes('egg') ? '🥚' :
+                    product.name.toLowerCase().includes('milk') ? '🥛' :
+                    product.name.toLowerCase().includes('cheese') ? '🧀' :
+                    product.name.toLowerCase().includes('tomato') ? '🍅' :
+                    product.name.toLowerCase().includes('potato') ? '🥔' :
+                    product.name.toLowerCase().includes('carrot') ? '🥕' :
+                    product.name.toLowerCase().includes('onion') ? '🧅' :
+                    product.name.toLowerCase().includes('garlic') ? '🧄' :
+                    product.name.toLowerCase().includes('pepper') ? '🌶️' :
+                    product.name.toLowerCase().includes('lemon') ? '🍋' :
+                    product.name.toLowerCase().includes('apple') ? '🍎' :
+                    product.name.toLowerCase().includes('banana') ? '🍌' :
+                    product.name.toLowerCase().includes('orange') ? '🍊' :
+                    product.name.toLowerCase().includes('avocado') ? '🥑' :
+                    product.name.toLowerCase().includes('mushroom') ? '🍄' :
+                    product.name.toLowerCase().includes('broccoli') ? '🥦' :
+                    product.name.toLowerCase().includes('cucumber') ? '🥒' :
+                    product.name.toLowerCase().includes('rice') ? '🍚' :
+                    product.name.toLowerCase().includes('bread') ? '🍞' :
+                    product.name.toLowerCase().includes('flour') ? '🌾' :
+                    product.name.toLowerCase().includes('salt') ? '🧂' :
+                    product.name.toLowerCase().includes('oil') ? '🫒' :
+                    product.name.toLowerCase().includes('honey') ? '🍯' :
+                    product.name.toLowerCase().includes('chocolate') ? '🍫' :
+                    product.name.toLowerCase().includes('coffee') ? '☕' :
+                    product.name.toLowerCase().includes('tea') ? '🍵' :
+                    product.name.toLowerCase().includes('pasta') ? '🍝' :
+                    product.name.toLowerCase().includes('cake') ? '🍰' :
+                    product.name.toLowerCase().includes('cookie') ? '🍪' :
+                    '🛒'
+                    }}
+                </span>
+            </div>
+
+            <div class="product-info">
+
+                <h2>{{ product.name }}</h2>
+
+                <p class="price">
+                    {{ product.price }} EGP
+                </p>
+
+                <button type="button">
+                    Add to Cart
+                </button>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+    }
+
+    @if (!loading && !errorMessage && products.length === 0) {
+
+    <div class="empty">
+        <p>No products available.</p>
+    </div>
+
+    }
+
+</section>

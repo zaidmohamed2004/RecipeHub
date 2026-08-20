@@ -108,8 +108,7 @@
 
 
     <!-- RECIPES GRID -->
-    @if (!loading && !error) {
-
+    @if (!loading && !error && recipes.length > 0) {
     <div class="recipes-grid">
 
       @for (recipe of recipes; track recipe._id) {

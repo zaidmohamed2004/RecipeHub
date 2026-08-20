@@ -6,6 +6,7 @@ import { Register } from './pages/register/register';
 import { Recipes } from './pages/recipes/recipes';
 import { RecipeDetails } from './pages/recipe-details/recipe-details';
 import { Cart } from './pages/cart/cart';
+import { Store } from './pages/store/store';
 
 export const routes: Routes = [
 
@@ -37,6 +38,11 @@ export const routes: Routes = [
     {
         path: 'cart',
         component: Cart
+    },
+
+    {
+        path: 'store',
+        component: Store
     },
 
     {
