@@ -1,15 +1,17 @@
 <section class="store">
 
-    <div class="store-header">
-        <h1>Our Store</h1>
-        <p>Choose the ingredients you need for your favorite recipes.</p>
-    </div>
     @if (successMessage) {
-    <div class="success-message">
+    <div class="success-toast">
         <span class="success-icon">✓</span>
         <span>{{ successMessage }}</span>
     </div>
     }
+
+    <div class="store-header">
+        <h1>Our Store</h1>
+        <p>Choose the ingredients you need for your favorite recipes.</p>
+    </div>
+
 
     @if (loading) {
     <div class="loading">

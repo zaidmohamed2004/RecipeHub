@@ -40,8 +40,11 @@ export class Store implements OnInit {
 
         this.successMessage = `${product.name} added to cart successfully!`;
 
+        this.cdr.detectChanges();
+
         setTimeout(() => {
           this.successMessage = '';
+          this.cdr.detectChanges();
         }, 3000);
 
       },

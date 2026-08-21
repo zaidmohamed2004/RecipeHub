@@ -10,6 +10,97 @@
 
 
 /* =========================
+   FLOATING TOAST
+========================= */
+
+.message-toast {
+  position: fixed;
+  top: 90px;
+  right: 30px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 280px;
+  max-width: 420px;
+
+  padding: 14px 20px;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  box-shadow: 0 8px 25px rgba(36, 56, 47, 0.15);
+
+  animation: toastIn 0.3s ease;
+}
+
+
+/* SUCCESS TOAST */
+
+.success-toast {
+  background: #ffffff;
+  border: 1px solid #c9e8d3;
+  border-left: 5px solid #287544;
+  color: #287544;
+}
+
+
+/* ERROR TOAST */
+
+.error-toast {
+  background: #ffffff;
+  border: 1px solid #f0cbc5;
+  border-left: 5px solid #a63d32;
+  color: #a63d32;
+}
+
+
+/* TOAST ICON */
+
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 25px;
+  height: 25px;
+
+  border-radius: 50%;
+
+  background: #287544;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.error-toast .toast-icon {
+  background: #a63d32;
+}
+
+
+/* TOAST ANIMATION */
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* =========================
    CONTAINER
 ========================= */
 
@@ -28,11 +119,15 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
+
   margin-bottom: 30px;
+
   color: #68736d;
   text-decoration: none;
+
   font-size: 14px;
   font-weight: 600;
+
   transition: color 0.2s ease;
 }
 
@@ -48,10 +143,14 @@
 .recipe-hero {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
+
   overflow: hidden;
+
   background: white;
+
   border: 1px solid #e8e3dc;
   border-radius: 18px;
+
   box-shadow: 0 15px 45px rgba(36, 56, 47, 0.07);
 }
 
@@ -60,16 +159,22 @@
 
 .recipe-hero-image {
   position: relative;
+
   min-height: 480px;
+
   overflow: hidden;
+
   background: #eeeae4;
 }
 
 .recipe-hero-image img {
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   transition: transform 0.5s ease;
 }
 
@@ -80,15 +185,23 @@
 
 .category-badge {
   position: absolute;
+
   top: 22px;
   left: 22px;
+
   padding: 8px 15px;
+
   background: rgba(255, 255, 255, 0.95);
+
   border-radius: 20px;
+
   color: #b65c35;
+
   font-size: 11px;
   font-weight: 800;
+
   letter-spacing: 1px;
+
   text-transform: uppercase;
 }
 
@@ -99,31 +212,44 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   padding: 55px;
 }
 
 .eyebrow {
   margin-bottom: 15px;
+
   color: #b65c35;
+
   font-size: 11px;
   font-weight: 800;
+
   letter-spacing: 2px;
+
   text-transform: uppercase;
 }
 
 .recipe-hero-content h1 {
   margin: 0 0 20px;
+
   color: #24382f;
+
   font-size: clamp(38px, 4vw, 58px);
+
   line-height: 1.08;
+
   font-weight: 700;
 }
 
 .hero-description {
   max-width: 500px;
+
   margin: 0;
+
   color: #68736d;
+
   font-size: 16px;
+
   line-height: 1.8;
 }
 
@@ -136,6 +262,7 @@
   display: flex;
   align-items: center;
   gap: 25px;
+
   margin: 30px 0;
 }
 
@@ -152,14 +279,18 @@
 
 .meta-item span {
   color: #8a938e;
+
   font-size: 12px;
+
   text-transform: uppercase;
+
   letter-spacing: 0.7px;
 }
 
 .meta-divider {
   width: 1px;
   height: 42px;
+
   background: #e8e3dc;
 }
 
@@ -170,18 +301,27 @@
 
 .add-recipe-button {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
+
   gap: 10px;
+
   min-height: 50px;
+
   padding: 13px 24px;
+
   border: none;
   border-radius: 8px;
+
   background: #24382f;
   color: white;
+
   cursor: pointer;
+
   font-size: 14px;
   font-weight: 700;
+
   transition:
     background 0.2s ease,
     transform 0.2s ease;
@@ -189,38 +329,14 @@
 
 .add-recipe-button:hover:not(:disabled) {
   background: #b65c35;
+
   transform: translateY(-2px);
 }
 
 .add-recipe-button:disabled {
   opacity: 0.65;
+
   cursor: not-allowed;
-}
-
-
-/* =========================
-   MESSAGE
-========================= */
-
-.message {
-  margin: 25px 0;
-  padding: 15px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.success-message {
-  background: #eaf6ee;
-  border: 1px solid #c9e8d3;
-  color: #287544;
-}
-
-.error-message {
-  background: #fff0ee;
-  border: 1px solid #f0cbc5;
-  color: #a63d32;
 }
 
 
@@ -234,31 +350,43 @@
 
 .section-heading {
   display: flex;
+
   justify-content: space-between;
   align-items: flex-end;
+
   gap: 25px;
+
   margin-bottom: 30px;
 }
 
 .section-label {
   display: block;
+
   margin-bottom: 9px;
+
   color: #b65c35;
+
   font-size: 11px;
   font-weight: 800;
+
   letter-spacing: 2px;
 }
 
 .section-heading h2 {
   margin: 0 0 8px;
+
   color: #24382f;
+
   font-size: 38px;
+
   line-height: 1.15;
 }
 
 .section-heading p {
   margin: 0;
+
   color: #68736d;
+
   font-size: 15px;
 }
 
@@ -269,18 +397,27 @@
 
 .ingredients-list {
   display: grid;
+
   grid-template-columns: repeat(2, minmax(0, 1fr));
+
   gap: 18px;
 }
 
 .ingredient-card {
   display: flex;
+
   align-items: center;
+
   gap: 18px;
+
   padding: 20px;
+
   background: white;
+
   border: 1px solid #e8e3dc;
+
   border-radius: 14px;
+
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -303,6 +440,7 @@
 
 .ingredient-icon {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -313,11 +451,9 @@
 
   border-radius: 14px;
 
-  background: linear-gradient(
-    135deg,
-    #fff4eb,
-    #f8eee5
-  );
+  background: linear-gradient(135deg,
+      #fff4eb,
+      #f8eee5);
 
   border: 1px solid #f0e2d6;
 
@@ -356,6 +492,7 @@
 
 .ingredient-info {
   min-width: 0;
+
   flex: 1;
 }
 
@@ -369,18 +506,23 @@
   font-size: 17px;
 
   white-space: nowrap;
+
   text-overflow: ellipsis;
 }
 
 .ingredient-info p {
   margin: 0 0 4px;
+
   color: #8a938e;
+
   font-size: 12px;
 }
 
 .ingredient-price {
   color: #b65c35;
+
   font-size: 13px;
+
   font-weight: 700;
 }
 
@@ -391,46 +533,62 @@
 
 .ingredient-actions {
   display: flex;
+
   flex-direction: column;
+
   gap: 7px;
+
   flex-shrink: 0;
 }
 
 .store-button,
 .ingredient-cart-button {
   padding: 8px 12px;
+
   border-radius: 6px;
+
   cursor: pointer;
+
   font-size: 11px;
+
   font-weight: 700;
+
   white-space: nowrap;
+
   transition: all 0.2s ease;
 }
 
 .store-button {
   border: 1px solid #ded8cf;
+
   background: white;
+
   color: #24382f;
 }
 
 .store-button:hover {
   border-color: #b65c35;
+
   color: #b65c35;
 }
 
 .ingredient-cart-button {
   border: 1px solid #24382f;
+
   background: #24382f;
+
   color: white;
 }
 
 .ingredient-cart-button:hover:not(:disabled) {
   border-color: #b65c35;
+
   background: #b65c35;
 }
 
 .ingredient-cart-button:disabled {
   opacity: 0.6;
+
   cursor: not-allowed;
 }
 
@@ -445,22 +603,31 @@
 
 .steps-list {
   display: flex;
+
   flex-direction: column;
+
   gap: 16px;
 }
 
 .step-card {
   display: flex;
+
   align-items: flex-start;
+
   gap: 20px;
+
   padding: 22px;
+
   background: white;
+
   border: 1px solid #e8e3dc;
+
   border-radius: 12px;
 }
 
 .step-number {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -476,6 +643,7 @@
   color: white;
 
   font-size: 15px;
+
   font-weight: 700;
 }
 
@@ -485,17 +653,25 @@
 
 .step-content span {
   display: block;
+
   margin-bottom: 7px;
+
   color: #b65c35;
+
   font-size: 10px;
+
   font-weight: 800;
+
   letter-spacing: 1.5px;
 }
 
 .step-content p {
   margin: 0;
+
   color: #4f5b55;
+
   font-size: 15px;
+
   line-height: 1.7;
 }
 
@@ -506,11 +682,14 @@
 
 .bottom-cta {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
+
   gap: 30px;
 
   margin-top: 80px;
+
   padding: 40px;
 
   border-radius: 15px;
@@ -520,35 +699,43 @@
   color: white;
 }
 
-.bottom-cta > div {
+.bottom-cta>div {
   flex: 1;
 }
 
 .bottom-cta span {
   color: #e8a16f;
+
   font-size: 10px;
+
   font-weight: 800;
+
   letter-spacing: 2px;
 }
 
 .bottom-cta h2 {
   margin: 8px 0;
+
   font-size: 30px;
 }
 
 .bottom-cta p {
   margin: 0;
+
   color: rgba(255, 255, 255, 0.7);
+
   font-size: 14px;
 }
 
 .bottom-button {
   flex-shrink: 0;
+
   background: #e8a16f;
 }
 
 .bottom-button:hover:not(:disabled) {
   background: white;
+
   color: #24382f;
 }
 
@@ -559,7 +746,9 @@
 
 .state-container {
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
 
@@ -572,14 +761,19 @@
 
 .state-container h2 {
   margin: 0 0 10px;
+
   color: #24382f;
+
   font-size: 25px;
 }
 
 .state-container p {
   max-width: 500px;
+
   margin: 0;
+
   color: #68736d;
+
   line-height: 1.6;
 }
 
@@ -590,6 +784,7 @@
   margin-bottom: 22px;
 
   border: 4px solid #e8e3dc;
+
   border-top-color: #b65c35;
 
   border-radius: 50%;
@@ -602,6 +797,7 @@
   height: 14px;
 
   border: 2px solid rgba(255, 255, 255, 0.4);
+
   border-top-color: white;
 
   border-radius: 50%;
@@ -611,6 +807,7 @@
 
 .state-icon {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -626,6 +823,7 @@
   color: #b65c35;
 
   font-size: 25px;
+
   font-weight: 800;
 }
 
@@ -633,6 +831,7 @@
   display: inline-block;
 
   margin-top: 25px;
+
   padding: 12px 20px;
 
   border-radius: 7px;
@@ -644,6 +843,7 @@
   text-decoration: none;
 
   font-size: 14px;
+
   font-weight: 700;
 
   transition: background 0.2s ease;
@@ -694,6 +894,7 @@
 
   .details-container {
     width: min(100% - 30px, 1150px);
+
     padding-top: 25px;
   }
 
@@ -719,6 +920,7 @@
 
   .section-heading {
     align-items: flex-start;
+
     flex-direction: column;
   }
 
@@ -728,6 +930,7 @@
 
   .ingredient-card {
     align-items: flex-start;
+
     flex-wrap: wrap;
   }
 
@@ -746,6 +949,7 @@
 
   .ingredient-actions {
     width: 100%;
+
     flex-direction: row;
   }
 
@@ -756,12 +960,27 @@
 
   .bottom-cta {
     flex-direction: column;
+
     align-items: stretch;
+
     padding: 30px 25px;
   }
 
   .bottom-button {
     width: 100%;
+  }
+
+
+  /* MOBILE TOAST */
+
+  .message-toast {
+    top: 80px;
+
+    left: 20px;
+    right: 20px;
+
+    min-width: auto;
+    max-width: none;
   }
 
 }
@@ -779,12 +998,14 @@
 
   .ingredient-card {
     gap: 14px;
+
     padding: 16px;
   }
 
   .ingredient-icon {
     width: 52px;
     height: 52px;
+
     border-radius: 12px;
   }
 
@@ -794,12 +1015,14 @@
 
   .step-card {
     gap: 14px;
+
     padding: 17px;
   }
 
   .step-number {
     width: 38px;
     height: 38px;
+
     font-size: 13px;
   }
 
