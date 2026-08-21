@@ -1,0 +1,440 @@
+<section class="checkout-section">
+
+
+    @if (loading) {
+
+    <div class="checkout-message">
+
+        <p>
+            Loading checkout...
+        </p>
+
+    </div>
+
+    }
+
+
+    @if (error && !success) {
+
+    <div class="checkout-message error">
+
+        <p>
+            {{ error }}
+        </p>
+
+    </div>
+
+    }
+
+
+    @if (success) {
+
+    <div class="success-container">
+
+        <div class="success-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <span class="section-label">
+                ORDER SUCCESSFUL
+            </span>
+
+            <h1>
+                Your order has been placed!
+            </h1>
+
+            <p>
+                This is a simulated checkout. No real payment was processed.
+            </p>
+
+
+            <div class="order-info">
+
+                <div>
+
+                    <span>
+                        Order ID
+                    </span>
+
+                    <strong>
+                        {{ orderId }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        {{ orderTotal }} EGP
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <a
+                routerLink="/recipes"
+                class="success-btn"
+            >
+                Continue Cooking
+            </a>
+
+        </div>
+
+    </div>
+
+    }
+
+
+    @if (!loading && !success && cart) {
+
+    <div class="checkout-header">
+
+        <a
+            routerLink="/cart"
+            class="back-link"
+        >
+            ← Back to Cart
+        </a>
+
+
+        <span class="section-label">
+            CHECKOUT
+        </span>
+
+        <h1>
+            Complete Your Order
+        </h1>
+
+        <p>
+            Enter your delivery details to complete your simulated order.
+        </p>
+
+    </div>
+
+
+    <div class="checkout-layout">
+
+
+        <!-- =========================
+             CHECKOUT FORM
+        ========================== -->
+
+        <form
+            #checkoutForm="ngForm"
+            (ngSubmit)="placeOrder(checkoutForm)"
+            class="checkout-form"
+        >
+
+
+            <div class="form-card">
+
+                <h2>
+                    Delivery Information
+                </h2>
+
+
+                <div class="form-group">
+
+                    <label
+                        for="shippingAddress"
+                    >
+                        Shipping Address
+                    </label>
+
+
+                    <textarea
+                        id="shippingAddress"
+                        name="shippingAddress"
+                        [(ngModel)]="checkoutData.shippingAddress"
+                        required
+                        minlength="5"
+                        rows="4"
+                        placeholder="Enter your delivery address"
+                    ></textarea>
+
+
+                    @if (
+                        checkoutForm.submitted &&
+                        checkoutForm.controls['shippingAddress']?.invalid
+                    ) {
+
+                    <small class="field-error">
+
+                        Please enter a valid address.
+
+                    </small>
+
+                    }
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label
+                        for="phone"
+                    >
+                        Phone Number
+                    </label>
+
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        [(ngModel)]="checkoutData.phone"
+                        required
+                        minlength="8"
+                        placeholder="01XXXXXXXXX"
+                    />
+
+
+                    @if (
+                        checkoutForm.submitted &&
+                        checkoutForm.controls['phone']?.invalid
+                    ) {
+
+                    <small class="field-error">
+
+                        Please enter a valid phone number.
+
+                    </small>
+
+                    }
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================
+                 PAYMENT
+            ========================== -->
+
+            <div class="form-card">
+
+                <h2>
+                    Payment Method
+                </h2>
+
+
+                <label class="payment-option">
+
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Cash on Delivery"
+                        [(ngModel)]="checkoutData.paymentMethod"
+                    />
+
+                    <span class="payment-icon">
+                        💵
+                    </span>
+
+                    <span>
+
+                        <strong>
+                            Cash on Delivery
+                        </strong>
+
+                        <small>
+                            Pay when your order arrives.
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="payment-option">
+
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Simulated Card Payment"
+                        [(ngModel)]="checkoutData.paymentMethod"
+                    />
+
+                    <span class="payment-icon">
+                        💳
+                    </span>
+
+                    <span>
+
+                        <strong>
+                            Simulated Card Payment
+                        </strong>
+
+                        <small>
+                            No real card payment is processed.
+                        </small>
+
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="place-order-btn"
+                [disabled]="submitting"
+            >
+
+                @if (submitting) {
+
+                <span>
+                    Placing Order...
+                </span>
+
+                }
+                @else {
+
+                <span>
+                    Place Simulated Order
+                </span>
+
+                }
+
+            </button>
+
+        </form>
+
+
+        <!-- =========================
+             ORDER SUMMARY
+        ========================== -->
+
+        <aside class="order-summary">
+
+
+            <span class="section-label">
+                ORDER SUMMARY
+            </span>
+
+
+            <h2>
+                Your Items
+            </h2>
+
+
+            <div class="summary-items">
+
+                @for (
+                    item of cart.items;
+                    track item.product._id
+                ) {
+
+                <div class="summary-item">
+
+
+                    <div class="summary-product">
+
+                        <div class="summary-icon">
+
+                            {{
+                                getProductIcon(
+                                    item.product.name
+                                )
+                            }}
+
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                {{ item.product.name }}
+                            </h3>
+
+                            <p>
+
+                                {{ item.quantity }}
+
+                                ×
+
+                                {{ item.product.price }}
+
+                                EGP
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <strong>
+
+                        {{
+                            item.product.price *
+                            item.quantity
+                        }}
+
+                        EGP
+
+                    </strong>
+
+                </div>
+
+                }
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Total Items
+                </span>
+
+                <span>
+                    {{ getTotalItems() }}
+                </span>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    {{ getTotal() }} EGP
+                </strong>
+
+            </div>
+
+
+            <p class="simulation-note">
+
+                🧪 This checkout is for simulation purposes only.
+
+            </p>
+
+        </aside>
+
+    </div>
+
+    }
+
+</section>

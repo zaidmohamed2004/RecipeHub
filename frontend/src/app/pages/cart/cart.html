@@ -75,7 +75,6 @@
                 </div>
 
 
-                <!-- QUANTITY CONTROLS -->
                 <div class="quantity">
 
                     <span>Quantity</span>
@@ -116,7 +115,6 @@
                 </div>
 
 
-                <!-- ITEM TOTAL -->
                 <div class="item-total">
 
                     <span>
@@ -126,7 +124,6 @@
                 </div>
 
 
-                <!-- REMOVE BUTTON -->
                 <button
                     type="button"
                     class="remove-item"
@@ -160,9 +157,12 @@
                 <strong>{{ getTotal() }} EGP</strong>
             </div>
 
-            <button class="checkout-btn">
+            <a
+                routerLink="/checkout"
+                class="checkout-btn"
+            >
                 Proceed to Checkout
-            </button>
+            </a>
 
         </aside>
 
