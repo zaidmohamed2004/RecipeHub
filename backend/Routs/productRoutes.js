@@ -9,6 +9,7 @@ router.get("/", productController.getProducts);
 router.get("/:id", productController.getProductById);
 
 router.patch("/:id", authMiddleware, allowTo("admin"), productController.updateProduct);
+router.delete("/:id", authMiddleware, allowTo("admin"), productController.deleteProduct);
 
 router.post("/", authMiddleware, allowTo("admin"), productController.addProduct);
 

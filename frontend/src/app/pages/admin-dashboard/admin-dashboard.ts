@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { forkJoin, timeout } from 'rxjs';
+import { timeout } from 'rxjs';
 
 import { AdminService } from '../../services/admin';
 import { Product } from '../../services/product';
 import { Recipe } from '../../models/recipe';
+import { NewRecipe } from '../../services/admin';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -20,32 +21,49 @@ export class AdminDashboard implements OnInit {
 
   products: Product[] = [];
   recipes: Recipe[] = [];
-  loading = true;
+  productsLoading = true;
+  recipesLoading = true;
   savingProduct = false;
+  savingRecipe = false;
   message = '';
   error = '';
   productForm = { name: '', price: 0 };
+  recipeForm: NewRecipe = {
+    name: '',
+    category: '',
+    image: '',
+    ingredients: [{ product: '', quantity: 1 }],
+    steps: ''
+  };
 
   ngOnInit(): void {
     this.loadDashboard();
   }
 
   loadDashboard(): void {
-    this.loading = true;
+    this.productsLoading = true;
+    this.recipesLoading = true;
     this.error = '';
 
-    forkJoin({
-      products: this.adminService.getProducts(),
-      recipes: this.adminService.getRecipes()
-    }).pipe(timeout(10000)).subscribe({
+    this.adminService.getProducts().pipe(timeout(10000)).subscribe({
       next: (response) => {
-        this.products = response.products.products;
-        this.recipes = response.recipes.data;
-        this.loading = false;
+        this.products = response.products;
+        this.productsLoading = false;
       },
       error: () => {
-        this.error = 'Unable to load dashboard data. Check that the backend is running on port 7777, then try again.';
-        this.loading = false;
+        this.productsLoading = false;
+        this.error = 'Products could not be loaded. Check that the backend is running on port 7777.';
+      }
+    });
+
+    this.adminService.getRecipes().pipe(timeout(10000)).subscribe({
+      next: (response) => {
+        this.recipes = response.data;
+        this.recipesLoading = false;
+      },
+      error: () => {
+        this.recipesLoading = false;
+        this.error = 'Recipes could not be loaded. Check that the backend is running on port 7777.';
       }
     });
   }
@@ -89,6 +107,78 @@ export class AdminDashboard implements OnInit {
       },
       error: () => {
         this.error = 'Unable to delete recipe.';
+      }
+    });
+  }
+
+  deleteProduct(product: Product): void {
+    if (!confirm(`Delete ${product.name}?`)) {
+      return;
+    }
+
+    this.adminService.deleteProduct(product._id).subscribe({
+      next: () => {
+        this.products = this.products.filter((item) => item._id !== product._id);
+        this.message = 'Product deleted successfully.';
+      },
+      error: (err) => {
+        this.error = err.error?.error || 'Unable to delete product.';
+      }
+    });
+  }
+
+  addIngredient(): void {
+    this.recipeForm.ingredients.push({ product: '', quantity: 1 });
+  }
+
+  removeIngredient(index: number): void {
+    if (this.recipeForm.ingredients.length > 1) {
+      this.recipeForm.ingredients.splice(index, 1);
+    }
+  }
+
+  addRecipe(): void {
+    const hasInvalidIngredient = this.recipeForm.ingredients.some(
+      (ingredient) => !ingredient.product || ingredient.quantity < 1
+    );
+
+    if (
+      !this.recipeForm.name.trim() ||
+      !this.recipeForm.category.trim() ||
+      !this.recipeForm.image.trim() ||
+      this.recipeForm.steps.trim().length < 10 ||
+      hasInvalidIngredient
+    ) {
+      this.error = 'Complete all recipe fields and add at least one valid ingredient.';
+      return;
+    }
+
+    this.savingRecipe = true;
+    this.error = '';
+    this.message = '';
+
+    this.adminService.addRecipe({
+      ...this.recipeForm,
+      name: this.recipeForm.name.trim(),
+      category: this.recipeForm.category.trim(),
+      image: this.recipeForm.image.trim(),
+      steps: this.recipeForm.steps.trim()
+    }).subscribe({
+      next: (response) => {
+        this.recipes = [...this.recipes, response.data];
+        this.recipeForm = {
+          name: '',
+          category: '',
+          image: '',
+          ingredients: [{ product: '', quantity: 1 }],
+          steps: ''
+        };
+        this.savingRecipe = false;
+        this.message = 'Recipe added successfully.';
+      },
+      error: (err) => {
+        this.savingRecipe = false;
+        this.error = err.error?.error || 'Unable to add recipe.';
       }
     });
   }

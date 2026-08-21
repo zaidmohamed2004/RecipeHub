@@ -3,11 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Product } from './product';
-import { Recipe, RecipeResponse, RecipesResponse } from '../models/recipe';
+import { RecipeResponse, RecipesResponse } from '../models/recipe';
 
 export interface NewProduct {
   name: string;
   price: number;
+}
+
+export interface NewRecipe {
+  name: string;
+  category: string;
+  image: string;
+  ingredients: { product: string; quantity: number }[];
+  steps: string;
 }
 
 @Injectable({
@@ -28,6 +36,14 @@ export class AdminService {
 
   getRecipes(): Observable<RecipesResponse> {
     return this.http.get<RecipesResponse>(`${this.recipesUrl}?page=1&limit=100`);
+  }
+
+  addRecipe(recipe: NewRecipe): Observable<RecipeResponse> {
+    return this.http.post<RecipeResponse>(this.recipesUrl, recipe);
+  }
+
+  deleteProduct(id: string): Observable<{ product: Product }> {
+    return this.http.delete<{ product: Product }>(`${this.productsUrl}/${id}`);
   }
 
   deleteRecipe(id: string): Observable<RecipeResponse> {
