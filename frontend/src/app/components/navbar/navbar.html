@@ -11,9 +11,27 @@
       <a routerLink="/store">Store</a>
     </div>
 
-    <a class="join-btn" routerLink="/register">
-      Join Now
-    </a>
+    <div class="nav-actions">
+
+      @if (auth.isLoggedIn()) {
+
+      <a class="cart-btn" routerLink="/cart">
+        🛒 Cart
+      </a>
+
+      <button class="logout-btn" type="button" (click)="logout()">
+        Logout
+      </button>
+
+      } @else {
+
+      <a class="join-btn" routerLink="/register">
+        Join Now
+      </a>
+
+      }
+
+    </div>
 
   </div>
 </nav>

@@ -25,8 +25,14 @@ const register = async (req, res) => {
 
         await newUser.save();
 
+        const token = generateToken({
+            id: newUser._id,
+            role: newUser.role
+        });
+
         res.status(201).json({
             message: "Registered Successfully",
+            token: token,
             data: {
                 id: newUser._id,
                 firstName: newUser.firstName,
@@ -36,7 +42,7 @@ const register = async (req, res) => {
             }
         });
 
-    } 
+    }
     catch (error) {
         res.status(500).json({
             error: error.message
@@ -85,7 +91,7 @@ const login = async (req, res) => {
             }
         });
 
-    } 
+    }
     catch (error) {
         res.status(500).json({
             error: error.message

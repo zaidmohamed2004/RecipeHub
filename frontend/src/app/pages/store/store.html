@@ -4,6 +4,12 @@
         <h1>Our Store</h1>
         <p>Choose the ingredients you need for your favorite recipes.</p>
     </div>
+    @if (successMessage) {
+    <div class="success-message">
+        <span class="success-icon">✓</span>
+        <span>{{ successMessage }}</span>
+    </div>
+    }
 
     @if (loading) {
     <div class="loading">

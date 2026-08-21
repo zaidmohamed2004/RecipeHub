@@ -1,3 +1,7 @@
+/* =========================
+   NAVBAR
+========================= */
+
 .navbar {
   width: 100%;
   background-color: #f7f3ed;
@@ -14,31 +18,74 @@
   justify-content: space-between;
 }
 
+
+/* =========================
+   LOGO
+========================= */
+
 .logo {
   color: #24382f;
   text-decoration: none;
+
   font-size: 24px;
   font-weight: 700;
+
+  transition: color 0.2s ease;
 }
+
+.logo:hover {
+  color: #b65c35;
+}
+
+
+/* =========================
+   NAV LINKS
+========================= */
 
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 35px;
 }
 
 .nav-links a {
   color: #24382f;
   text-decoration: none;
+
   font-size: 15px;
+  font-weight: 500;
+
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
   color: #b65c35;
 }
 
+
+/* =========================
+   RIGHT ACTIONS
+========================= */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+/* =========================
+   JOIN NOW
+========================= */
+
 .join-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   background-color: #24382f;
   color: white;
+
   text-decoration: none;
 
   padding: 11px 22px;
@@ -46,8 +93,136 @@
 
   font-size: 14px;
   font-weight: 600;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .join-btn:hover {
   background-color: #17271f;
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   CART BUTTON
+========================= */
+
+.cart-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  color: #24382f;
+  background-color: transparent;
+
+  text-decoration: none;
+
+  padding: 9px 12px;
+  border: 1px solid #d8d2c9;
+  border-radius: 6px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.cart-btn:hover {
+  background-color: #eee8df;
+  border-color: #c8c0b5;
+  color: #b65c35;
+}
+
+
+/* =========================
+   CART ICON
+========================= */
+
+.cart-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.cart-text {
+  font-size: 14px;
+}
+
+
+/* =========================
+   LOGOUT BUTTON
+========================= */
+
+.logout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #b65c35;
+  color: white;
+
+  border: none;
+  border-radius: 6px;
+
+  padding: 11px 18px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #984a29;
+  transform: translateY(-1px);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .navbar-container {
+    padding: 16px 20px;
+  }
+
+  .nav-links {
+    gap: 18px;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+  }
+
+  .logo {
+    font-size: 21px;
+  }
+
+  .cart-text {
+    display: none;
+  }
+
+  .cart-btn {
+    padding: 9px 11px;
+  }
+
+  .logout-btn {
+    padding: 10px 14px;
+  }
 }

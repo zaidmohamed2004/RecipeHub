@@ -1,192 +1,447 @@
 <div class="auth-page">
+
   <div class="auth-card">
 
-    <a routerLink="/" class="logo">RecipeHub</a>
+    <a routerLink="/" class="logo">
+      RecipeHub
+    </a>
+
 
     <div class="auth-header">
+
       <span>JOIN RECIPEHUB</span>
+
       <h1>Create your account</h1>
-      <p>Start discovering delicious recipes today.</p>
+
+      <p>
+        Start discovering delicious recipes today.
+      </p>
+
     </div>
+
 
     <form #registerForm="ngForm" (ngSubmit)="handleSubmit(registerForm)" novalidate>
-<!-- First Name -->
-<div class="form-group">
-  <label for="firstName">First Name</label>
-
-  <input
-    id="firstName"
-    type="text"
-    name="firstName"
-    placeholder="Enter your first name"
-    [(ngModel)]="user.firstName"
-    #firstName="ngModel"
-    required
-    minlength="2"
-  />
-
-  @if (firstName.invalid && (firstName.touched || registerForm.submitted)) {
-    <div class="error">
-
-      @if (firstName.errors?.['required']) {
-        <small>First name is required.</small>
-      }
-
-      @if (firstName.errors?.['minlength']) {
-        <small>First name must be at least 2 characters.</small>
-      }
-
-    </div>
-  }
-</div>
 
 
-<!-- Last Name -->
-<div class="form-group">
-  <label for="lastName">Last Name</label>
+      <!-- First Name -->
+      <div class="form-group">
 
-  <input
-    id="lastName"
-    type="text"
-    name="lastName"
-    placeholder="Enter your last name"
-    [(ngModel)]="user.lastName"
-    #lastName="ngModel"
-    required
-    minlength="2"
-  />
+        <label for="firstName">
+          First Name
+        </label>
 
-  @if (lastName.invalid && (lastName.touched || registerForm.submitted)) {
-    <div class="error">
+        <input id="firstName" type="text" name="firstName" placeholder="Enter your first name"
+          [(ngModel)]="user.firstName" #firstName="ngModel" required minlength="2" autocomplete="given-name"
+          [class.input-error]="
+            firstName.invalid &&
+            (firstName.touched || registerForm.submitted)
+          " />
 
-      @if (lastName.errors?.['required']) {
-        <small>Last name is required.</small>
-      }
 
-      @if (lastName.errors?.['minlength']) {
-        <small>Last name must be at least 2 characters.</small>
-      }
+        @if (
+        firstName.invalid &&
+        (firstName.touched || registerForm.submitted)
+        ) {
 
-    </div>
-  }
-</div>
+        <div class="field-error">
+
+          @if (firstName.errors?.['required']) {
+          <span>
+            ⚠ First name is required.
+          </span>
+          }
+
+          @if (firstName.errors?.['minlength']) {
+          <span>
+            ⚠ First name must be at least 2 characters.
+          </span>
+          }
+
+        </div>
+
+        }
+
+
+        @if (getBackendError('firstName')) {
+
+        <div class="field-error">
+
+          <span>
+            ⚠ {{ getBackendError('firstName') }}
+          </span>
+
+        </div>
+
+        }
+
+      </div>
+
+
+      <!-- Last Name -->
+      <div class="form-group">
+
+        <label for="lastName">
+          Last Name
+        </label>
+
+        <input id="lastName" type="text" name="lastName" placeholder="Enter your last name" [(ngModel)]="user.lastName"
+          #lastName="ngModel" required minlength="2" autocomplete="family-name" [class.input-error]="
+            lastName.invalid &&
+            (lastName.touched || registerForm.submitted)
+          " />
+
+
+        @if (
+        lastName.invalid &&
+        (lastName.touched || registerForm.submitted)
+        ) {
+
+        <div class="field-error">
+
+          @if (lastName.errors?.['required']) {
+          <span>
+            ⚠ Last name is required.
+          </span>
+          }
+
+          @if (lastName.errors?.['minlength']) {
+          <span>
+            ⚠ Last name must be at least 2 characters.
+          </span>
+          }
+
+        </div>
+
+        }
+
+
+        @if (getBackendError('lastName')) {
+
+        <div class="field-error">
+
+          <span>
+            ⚠ {{ getBackendError('lastName') }}
+          </span>
+
+        </div>
+
+        }
+
+      </div>
 
 
       <!-- Email -->
       <div class="form-group">
-        <label for="email">Email</label>
 
-        <input
-          id="email"
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          [(ngModel)]="user.email"
-          #email="ngModel"
-          required
-          email
-        />
+        <label for="email">
+          Email
+        </label>
 
-        @if (email.invalid && (email.touched || registerForm.submitted)) {
-          <div class="error">
+        <input id="email" type="email" name="email" placeholder="Enter your email" [(ngModel)]="user.email"
+          #email="ngModel" required email autocomplete="email" [class.input-error]="
+            email.invalid &&
+            (email.touched || registerForm.submitted)
+          " />
 
-            @if (email.errors?.['required']) {
-              <small>Email is required.</small>
-            }
 
-            @if (email.errors?.['email']) {
-              <small>Please enter a valid email.</small>
-            }
+        @if (
+        email.invalid &&
+        (email.touched || registerForm.submitted)
+        ) {
 
-          </div>
+        <div class="field-error">
+
+          @if (email.errors?.['required']) {
+          <span>
+            ⚠ Email is required.
+          </span>
+          }
+
+          @if (email.errors?.['email']) {
+          <span>
+            ⚠ Please enter a valid email address.
+          </span>
+          }
+
+        </div>
+
         }
+
+
+        @if (getBackendError('email')) {
+
+        <div class="field-error">
+
+          <span>
+            ⚠ {{ getBackendError('email') }}
+          </span>
+
+        </div>
+
+        }
+
       </div>
 
 
       <!-- Password -->
       <div class="form-group">
-        <label for="password">Password</label>
 
-        <input
-          id="password"
-          type="password"
-          name="password"
-          placeholder="Create a password"
-          [(ngModel)]="user.password"
-          #password="ngModel"
-          required
-          minlength="6"
-        />
+        <label for="password">
+          Password
+        </label>
 
-        @if (password.invalid && (password.touched || registerForm.submitted)) {
-          <div class="error">
+        <input id="password" type="password" name="password" placeholder="Create a password" [(ngModel)]="user.password"
+          #password="ngModel" required minlength="8" autocomplete="new-password" [class.input-error]="
+            (
+              password.invalid &&
+              (password.touched || registerForm.submitted)
+            ) ||
+            (
+              registerForm.submitted &&
+              !isPasswordValid()
+            )
+          " />
 
-            @if (password.errors?.['required']) {
-              <small>Password is required.</small>
-            }
 
-            @if (password.errors?.['minlength']) {
-              <small>Password must be at least 6 characters.</small>
-            }
+        @if (password.touched || registerForm.submitted) {
 
+        <div class="password-rules">
+
+          <p>Password must contain:</p>
+
+
+          <div [class.valid]="isPasswordLengthValid()">
+            <span>
+              {{ isPasswordLengthValid() ? '✓' : '○' }}
+            </span>
+
+            At least 8 characters
           </div>
+
+
+          <div [class.valid]="hasUppercase()">
+            <span>
+              {{ hasUppercase() ? '✓' : '○' }}
+            </span>
+
+            One uppercase letter
+          </div>
+
+
+          <div [class.valid]="hasLowercase()">
+            <span>
+              {{ hasLowercase() ? '✓' : '○' }}
+            </span>
+
+            One lowercase letter
+          </div>
+
+
+          <div [class.valid]="hasNumber()">
+            <span>
+              {{ hasNumber() ? '✓' : '○' }}
+            </span>
+
+            One number
+          </div>
+
+
+          <div [class.valid]="hasSpecialCharacter()">
+            <span>
+              {{ hasSpecialCharacter() ? '✓' : '○' }}
+            </span>
+
+            One special character
+          </div>
+
+        </div>
+
         }
+
+
+        @if (
+        password.invalid &&
+        (password.touched || registerForm.submitted)
+        ) {
+
+        <div class="field-error">
+
+          @if (password.errors?.['required']) {
+          <span>
+            ⚠ Password is required.
+          </span>
+          }
+
+          @if (password.errors?.['minlength']) {
+          <span>
+            ⚠ Password must be at least 8 characters.
+          </span>
+          }
+
+        </div>
+
+        }
+
+
+        @if (
+        registerForm.submitted &&
+        user.password &&
+        !isPasswordValid()
+        ) {
+
+        <div class="field-error">
+
+          <span>
+            ⚠ Please meet all password requirements.
+          </span>
+
+        </div>
+
+        }
+
+
+        @if (getBackendError('password')) {
+
+        <div class="field-error">
+
+          <span>
+            ⚠ {{ getBackendError('password') }}
+          </span>
+
+        </div>
+
+        }
+
       </div>
 
 
       <!-- Confirm Password -->
       <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
 
-        <input
-          id="confirmPassword"
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm your password"
-          [(ngModel)]="user.confirmPassword"
-          #confirmPassword="ngModel"
-          required
-        />
+        <label for="confirmPassword">
+          Confirm Password
+        </label>
 
-        @if (confirmPassword.invalid && (confirmPassword.touched || registerForm.submitted)) {
-          <div class="error">
+        <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm your password"
+          [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" required autocomplete="new-password"
+          [class.input-error]="
+            (
+              confirmPassword.invalid &&
+              (confirmPassword.touched || registerForm.submitted)
+            ) ||
+            (
+              confirmPassword.touched &&
+              user.password !== user.confirmPassword
+            )
+          " />
 
-            @if (confirmPassword.errors?.['required']) {
-              <small>Please confirm your password.</small>
-            }
-
-          </div>
-        }
 
         @if (
-          confirmPassword.valid &&
-          user.password &&
-          user.confirmPassword &&
-          user.password !== user.confirmPassword &&
-          (confirmPassword.touched || registerForm.submitted)
+        confirmPassword.invalid &&
+        (confirmPassword.touched || registerForm.submitted)
         ) {
-          <div class="error">
-            <small>Passwords do not match.</small>
-          </div>
+
+        <div class="field-error">
+
+          @if (confirmPassword.errors?.['required']) {
+
+          <span>
+            ⚠ Please confirm your password.
+          </span>
+
+          }
+
+        </div>
+
+        }
+
+
+        @if (
+        confirmPassword.valid &&
+        user.password &&
+        user.confirmPassword &&
+        user.password !== user.confirmPassword &&
+        (
+        confirmPassword.touched ||
+        registerForm.submitted
+        )
+        ) {
+
+        <div class="field-error">
+
+          <span>
+            ⚠ Passwords do not match.
+          </span>
+
+        </div>
+
+        }
+
+
+        @if (
+        confirmPassword.valid &&
+        user.password &&
+        user.confirmPassword &&
+        user.password === user.confirmPassword
+        ) {
+
+        <div class="success-message">
+          ✓ Passwords match
+        </div>
+
         }
 
       </div>
 
 
-      <button
-        type="submit"
-        class="auth-btn"
-        [disabled]="registerForm.invalid"
-      >
+      <!-- General Backend Error -->
+      @if (
+      error &&
+      backendErrors.length === 0 &&
+      !getBackendError('firstName') &&
+      !getBackendError('lastName') &&
+      !getBackendError('email') &&
+      !getBackendError('password')
+      ) {
+
+      <div class="backend-error">
+        ⚠ {{ error }}
+      </div>
+
+      }
+
+
+      <!-- Submit -->
+      <button type="submit" class="auth-btn" [disabled]="loading">
+
+        @if (loading) {
+
+        <span class="button-loading">
+          <span class="spinner"></span>
+          Creating account...
+        </span>
+
+        } @else {
+
         Create Account
+
+        }
+
       </button>
 
     </form>
 
+
     <p class="switch-auth">
+
       Already have an account?
-      <a routerLink="/login">Sign in</a>
+
+      <a routerLink="/login">
+        Sign in
+      </a>
+
     </p>
 
   </div>
+
 </div>

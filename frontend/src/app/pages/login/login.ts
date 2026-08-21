@@ -22,7 +22,7 @@ export class Login {
   constructor(
     private auth: Auth,
     private router: Router
-  ) {}
+  ) { }
 
   handleSubmit(form: NgForm): void {
 
@@ -42,7 +42,7 @@ export class Login {
 
         this.loading = false;
 
-        this.router.navigate(['/cart']);
+        this.router.navigate(['/']);
       },
 
       error: (err) => {

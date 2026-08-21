@@ -26,6 +26,8 @@ export class Store implements OnInit {
     this.loadProducts();
   }
 
+  successMessage = '';
+
   addToCart(product: Product): void {
     console.log('PRODUCT TO ADD:', product);
 
@@ -33,7 +35,15 @@ export class Store implements OnInit {
     this.cartService.addToCart(product._id, 1).subscribe({
 
       next: (response) => {
+
         console.log('Product added to cart:', response);
+
+        this.successMessage = `${product.name} added to cart successfully!`;
+
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
+
       },
 
       error: (err) => {
