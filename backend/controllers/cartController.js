@@ -164,10 +164,103 @@ const getCart = async (req, res) => {
 
     }
 };
+// تحديث كمية منتج في السلة
+const updateCartItemQuantity = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const { quantity } = req.body;
+
+        const user = req.userId;
+
+        if (quantity < 1) {
+            return res.status(400).json({
+                message: "Quantity must be at least 1"
+            });
+        }
+
+        const cart = await Cart.findOne({ user });
+
+        if (!cart) {
+            return res.status(404).json({
+                message: "Cart not found"
+            });
+        }
+
+        const item = cart.items.find(
+            item => item.product.toString() === productId
+        );
+
+        if (!item) {
+            return res.status(404).json({
+                message: "Product not found in cart"
+            });
+        }
+
+        item.quantity = quantity;
+
+        await cart.save();
+
+        await cart.populate("items.product");
+
+        res.status(200).json({
+            message: "Cart quantity updated",
+            cart
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: "Error updating cart",
+            error: error.message
+        });
+
+    }
+};
+
+
+// حذف منتج من السلة
+const removeFromCart = async (req, res) => {
+    try {
+        const { productId } = req.params;
+
+        const user = req.userId;
+
+        const cart = await Cart.findOne({ user });
+
+        if (!cart) {
+            return res.status(404).json({
+                message: "Cart not found"
+            });
+        }
+
+        cart.items = cart.items.filter(
+            item => item.product.toString() !== productId
+        );
+
+        await cart.save();
+
+        await cart.populate("items.product");
+
+        res.status(200).json({
+            message: "Product removed from cart",
+            cart
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: "Error removing product",
+            error: error.message
+        });
+
+    }
+};
 
 
 module.exports = {
     addToCart,
     addRecipeToCart,
-    getCart
+    getCart,
+    updateCartItemQuantity,
+    removeFromCart
 };

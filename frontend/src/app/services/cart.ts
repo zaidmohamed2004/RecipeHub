@@ -57,4 +57,25 @@ export class CartService {
       }
     );
   }
+  updateQuantity(
+  productId: string,
+  quantity: number
+): Observable<CartResponse> {
+
+  return this.http.patch<CartResponse>(
+    `${this.apiUrl}/item/${productId}`,
+    { quantity }
+  );
+
+}
+
+removeFromCart(
+  productId: string
+): Observable<CartResponse> {
+
+  return this.http.delete<CartResponse>(
+    `${this.apiUrl}/item/${productId}`
+  );
+
+}
 }

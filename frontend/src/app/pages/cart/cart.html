@@ -75,17 +75,65 @@
                 </div>
 
 
+                <!-- QUANTITY CONTROLS -->
                 <div class="quantity">
+
                     <span>Quantity</span>
-                    <strong>{{ item.quantity }}</strong>
+
+                    <div class="quantity-controls">
+
+                        <button
+                            type="button"
+                            (click)="
+                                decreaseQuantity(
+                                    item.product._id,
+                                    item.quantity
+                                )
+                            "
+                            [disabled]="item.quantity <= 1"
+                        >
+                            −
+                        </button>
+
+                        <strong>
+                            {{ item.quantity }}
+                        </strong>
+
+                        <button
+                            type="button"
+                            (click)="
+                                increaseQuantity(
+                                    item.product._id,
+                                    item.quantity
+                                )
+                            "
+                        >
+                            +
+                        </button>
+
+                    </div>
+
                 </div>
 
 
+                <!-- ITEM TOTAL -->
                 <div class="item-total">
+
                     <span>
                         {{ item.product.price * item.quantity }} EGP
                     </span>
+
                 </div>
+
+
+                <!-- REMOVE BUTTON -->
+                <button
+                    type="button"
+                    class="remove-item"
+                    (click)="removeItem(item.product._id)"
+                >
+                    🗑️ Remove
+                </button>
 
             </div>
 
