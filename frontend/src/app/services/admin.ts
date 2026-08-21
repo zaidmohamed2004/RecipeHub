@@ -35,7 +35,7 @@ export class AdminService {
   }
 
   getRecipes(): Observable<RecipesResponse> {
-    return this.http.get<RecipesResponse>(`${this.recipesUrl}?page=1&limit=100`);
+    return this.http.get<RecipesResponse>(`${this.recipesUrl}?page=1&limit=10`);
   }
 
   addRecipe(recipe: NewRecipe): Observable<RecipeResponse> {
