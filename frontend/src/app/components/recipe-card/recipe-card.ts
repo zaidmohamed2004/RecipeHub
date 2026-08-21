@@ -1,21 +1,9 @@
-import {
-  Component,
-  Input
-} from '@angular/core';
-
-import {
-  RouterLink
-} from '@angular/router';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-card',
-
-  imports: [
-    RouterLink
-  ],
-
+  imports: [],
   templateUrl: './recipe-card.html',
-
   styleUrl: './recipe-card.css'
 })
 export class RecipeCard {
