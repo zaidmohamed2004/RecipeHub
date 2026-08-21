@@ -1,21 +1,20 @@
-/* =========================
-   NAVBAR
-========================= */
-
 .navbar {
   width: 100%;
-  background-color: #f7f3ed;
-  border-bottom: 1px solid #e5dfd5;
+  background: rgba(247, 243, 237, 0.96);
+  border-bottom: 1px solid #e7e0d6;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar-container {
-  max-width: 1200px;
+  max-width: 1250px;
   margin: 0 auto;
-  padding: 20px 30px;
+  padding: 16px 32px;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 40px;
 }
 
 
@@ -27,14 +26,18 @@
   color: #24382f;
   text-decoration: none;
 
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
 
-  transition: color 0.2s ease;
+  white-space: nowrap;
+
+  transition: all 0.25s ease;
 }
 
 .logo:hover {
   color: #b65c35;
+  transform: translateY(-1px);
 }
 
 
@@ -45,21 +48,29 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 8px;
+
+  flex: 1;
 }
 
 .nav-links a {
-  color: #24382f;
+  position: relative;
+
+  color: #4b514c;
   text-decoration: none;
 
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
 
-  transition: color 0.2s ease;
+  padding: 9px 14px;
+  border-radius: 8px;
+
+  transition: all 0.25s ease;
 }
 
 .nav-links a:hover {
-  color: #b65c35;
+  color: #24382f;
+  background-color: #eee8df;
 }
 
 
@@ -70,7 +81,70 @@
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 9px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-link {
+  color: #70512e;
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  padding: 9px 12px;
+  border-radius: 8px;
+
+  transition: all 0.25s ease;
+}
+
+.admin-link:hover {
+  color: #24382f;
+  background-color: #eee8df;
+}
+
+
+/* =========================
+   CART
+========================= */
+
+.cart-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  color: #24382f;
+  background-color: #fffdf9;
+
+  text-decoration: none;
+
+  padding: 9px 14px;
+
+  border: 1px solid #ddd5ca;
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  box-shadow: 0 2px 6px rgba(36, 56, 47, 0.04);
+
+  transition: all 0.25s ease;
+}
+
+.cart-btn:hover {
+  background-color: #24382f;
+  border-color: #24382f;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(36, 56, 47, 0.12);
 }
 
 
@@ -84,78 +158,31 @@
   justify-content: center;
 
   background-color: #24382f;
-  color: white;
+  color: #ffffff;
 
   text-decoration: none;
 
-  padding: 11px 22px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 9px;
 
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
 
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(36, 56, 47, 0.12);
+
+  transition: all 0.25s ease;
 }
 
 .join-btn:hover {
   background-color: #17271f;
   transform: translateY(-1px);
+
+  box-shadow: 0 6px 14px rgba(36, 56, 47, 0.18);
 }
 
 
 /* =========================
-   CART BUTTON
-========================= */
-
-.cart-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-
-  color: #24382f;
-  background-color: transparent;
-
-  text-decoration: none;
-
-  padding: 9px 12px;
-  border: 1px solid #d8d2c9;
-  border-radius: 6px;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.cart-btn:hover {
-  background-color: #eee8df;
-  border-color: #c8c0b5;
-  color: #b65c35;
-}
-
-
-/* =========================
-   CART ICON
-========================= */
-
-.cart-icon {
-  font-size: 16px;
-  line-height: 1;
-}
-
-.cart-text {
-  font-size: 14px;
-}
-
-
-/* =========================
-   LOGOUT BUTTON
+   LOGOUT
 ========================= */
 
 .logout-btn {
@@ -164,27 +191,30 @@
   justify-content: center;
 
   background-color: #b65c35;
-  color: white;
+  color: #ffffff;
 
   border: none;
-  border-radius: 6px;
+  border-radius: 9px;
 
-  padding: 11px 18px;
+  padding: 10px 17px;
 
   font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
 
   cursor: pointer;
 
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(182, 92, 53, 0.12);
+
+  transition: all 0.25s ease;
 }
 
 .logout-btn:hover {
   background-color: #984a29;
+
   transform: translateY(-1px);
+
+  box-shadow: 0 6px 14px rgba(182, 92, 53, 0.18);
 }
 
 .logout-btn:active {
@@ -196,33 +226,71 @@
    RESPONSIVE
 ========================= */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
 
   .navbar-container {
-    padding: 16px 20px;
+    padding: 15px 22px;
+    gap: 20px;
   }
 
   .nav-links {
-    gap: 18px;
+    gap: 3px;
   }
 
   .nav-links a {
-    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .admin-link {
+    display: none;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .navbar-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
   }
 
   .logo {
-    font-size: 21px;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
   }
 
-  .cart-text {
-    display: none;
+  .nav-links {
+    flex: none;
+    order: 2;
   }
 
-  .cart-btn {
-    padding: 9px 11px;
+  .nav-actions {
+    order: 3;
+  }
+}
+
+
+@media (max-width: 430px) {
+
+  .navbar-container {
+    padding: 14px 12px;
   }
 
+  .nav-links {
+    gap: 2px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    padding: 7px 8px;
+  }
+
+  .cart-btn,
+  .join-btn,
   .logout-btn {
-    padding: 10px 14px;
+    font-size: 12px;
+    padding: 8px 11px;
   }
 }
