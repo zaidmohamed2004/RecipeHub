@@ -1,0 +1,50 @@
+<section class="dashboard-shell">
+  <header class="dashboard-header">
+    <div>
+      <p class="eyebrow">RecipeHub / Control Center</p>
+      <h1>Admin dashboard</h1>
+      <p class="subtitle">Keep the catalog fresh and your kitchen organized.</p>
+    </div>
+    <a class="back-link" routerLink="/">Back to site</a>
+  </header>
+
+  @if (message) { <p class="notice success">{{ message }}</p> }
+  @if (error) { <p class="notice error">{{ error }} <button class="retry-button" type="button" (click)="loadDashboard()">Retry</button></p> }
+
+  @if (loading) {
+    <div class="loading">Loading your dashboard...</div>
+  } @else {
+    <div class="stats-grid">
+      <article class="stat-card accent-green"><span>Products</span><strong>{{ products.length }}</strong><small>Store inventory</small></article>
+      <article class="stat-card accent-orange"><span>Recipes</span><strong>{{ recipes.length }}</strong><small>Published recipes</small></article>
+      <article class="stat-card accent-blue"><span>Catalog status</span><strong>Live</strong><small>API connected</small></article>
+    </div>
+
+    <div class="content-grid">
+      <section class="panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">Inventory</p><h2>Add a product</h2></div>
+        </div>
+        <form (ngSubmit)="addProduct()" #productFormRef="ngForm">
+          <label>Product name <input name="name" [(ngModel)]="productForm.name" required placeholder="e.g. Olive oil"></label>
+          <label>Price <input name="price" [(ngModel)]="productForm.price" type="number" min="0.01" step="0.01" required></label>
+          <button type="submit" [disabled]="savingProduct || productFormRef.invalid">{{ savingProduct ? 'Adding...' : 'Add product' }}</button>
+        </form>
+      </section>
+
+      <section class="panel catalog-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Store</p><h2>Products</h2></div></div>
+        @if (products.length) {
+          <div class="table-wrap"><table><thead><tr><th>Name</th><th>Price</th></tr></thead><tbody>@for (product of products; track product._id) {<tr><td>{{ product.name }}</td><td>{{ product.price | currency }}</td></tr>}</tbody></table></div>
+        } @else { <p class="empty">No products yet.</p> }
+      </section>
+
+      <section class="panel recipes-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Content</p><h2>Recipes</h2></div></div>
+        @if (recipes.length) {
+          <div class="recipe-list">@for (recipe of recipes; track recipe._id) {<article class="recipe-row"><div><strong>{{ recipe.name }}</strong><span>{{ recipe.category }}</span></div><button class="delete-button" type="button" (click)="deleteRecipe(recipe)">Delete</button></article>}</div>
+        } @else { <p class="empty">No recipes yet.</p> }
+      </section>
+    </div>
+  }
+</section>

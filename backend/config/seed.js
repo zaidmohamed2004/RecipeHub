@@ -10,6 +10,7 @@ const Product = require("../models/product.model.js");
 const Recipe = require("../models/recipe.model.js");
 const User = require("../models/user.model.js");
 const Cart = require("../models/cart.model.js");
+const bcrypt = require("bcrypt");
 
 // =====================================================
 // PRODUCTS
@@ -1499,8 +1500,15 @@ async function seed() {
 
         console.log("Creating users...");
 
+        const usersWithHashedPasswords = await Promise.all(
+            users.map(async (user) => ({
+                ...user,
+                password: await bcrypt.hash(user.password, 10)
+            }))
+        );
+
         const createdUsers =
-            await User.insertMany(users);
+            await User.insertMany(usersWithHashedPasswords);
 
         console.log(
             `${createdUsers.length} users created`

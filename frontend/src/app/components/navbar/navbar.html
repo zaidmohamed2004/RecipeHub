@@ -15,6 +15,10 @@
 
       @if (auth.isLoggedIn()) {
 
+      @if (auth.isAdmin()) {
+      <a class="admin-link" routerLink="/admin">Admin Dashboard</a>
+      }
+
       <a class="cart-btn" routerLink="/cart">
         🛒 Cart
       </a>

@@ -39,6 +39,7 @@ export class Login {
         console.log('Login successful:', response);
 
         this.auth.saveToken(response.token);
+        this.auth.saveUser(response.user);
 
         this.loading = false;
 

@@ -39,12 +39,35 @@ export class Auth {
     localStorage.setItem('token', token);
   }
 
+  saveUser(user: LoginResponse['user']): void {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getUser(): LoginResponse['user'] | null {
+    const user = localStorage.getItem('user');
+
+    if (!user) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(user) as LoginResponse['user'];
+    } catch {
+      return null;
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.getUser()?.role === 'admin';
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   isLoggedIn(): boolean {

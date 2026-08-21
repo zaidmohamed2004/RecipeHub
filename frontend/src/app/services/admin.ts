@@ -1,0 +1,36 @@
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { Product } from './product';
+import { Recipe, RecipeResponse, RecipesResponse } from '../models/recipe';
+
+export interface NewProduct {
+  name: string;
+  price: number;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminService {
+  private readonly http = inject(HttpClient);
+  private readonly productsUrl = 'http://localhost:7777/products';
+  private readonly recipesUrl = 'http://localhost:7777/recipes';
+
+  getProducts(): Observable<{ products: Product[] }> {
+    return this.http.get<{ products: Product[] }>(this.productsUrl);
+  }
+
+  addProduct(product: NewProduct): Observable<{ product: Product }> {
+    return this.http.post<{ product: Product }>(this.productsUrl, product);
+  }
+
+  getRecipes(): Observable<RecipesResponse> {
+    return this.http.get<RecipesResponse>(`${this.recipesUrl}?page=1&limit=100`);
+  }
+
+  deleteRecipe(id: string): Observable<RecipeResponse> {
+    return this.http.delete<RecipeResponse>(`${this.recipesUrl}/${id}`);
+  }
+}
